@@ -1,19 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import LandingPage from './components/LandingPage/LandingPage'
 
-
-const Container=()=>{
-    return (
-        <div>
-        <h1>okkkk</h1>
-        </div>
-    )
+function Container(){
+  return (
+    <>
+    <LandingPage />
+    </>
+  )
 }
 
-
-ReactDOM.render(
-<React.StrictMode>
-    <Container />
-</React.StrictMode>,
-document.getElementById('root')
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+      <Container />
+  </React.StrictMode>,
 )
