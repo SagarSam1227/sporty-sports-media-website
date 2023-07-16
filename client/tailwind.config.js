@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         'roboto-condensed': ['Roboto Condensed', 'sans-serif'],
       },
+      minWidth: {
+        'fill': '-webkit-fill-available',
+      },
     },
   },
   plugins: [],

@@ -1,7 +1,13 @@
+import Header from "../Layout/Header/header";
+
+
 function Home(){
     return (
-        <div>homeee.......</div>
+        <>
+        <Header />
+        </>
     )
 }
+
 
 export default Home;

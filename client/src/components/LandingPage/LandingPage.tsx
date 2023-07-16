@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 
 function LandingPage() {
     const [open,setOpen] = useState(false)
-    const [isSignupPage,setIsSignupPage] =useState(false)
+   
     const [isLoginClicked, setIsLoginClicked] = useState(false)
     return (
         <>
@@ -22,9 +22,9 @@ function LandingPage() {
                         </button>
                     </div>
                     <div className="  float-left mt-11 ml-4">
-                        <button className=" text-[#faebd7] rounded-full bg-[#00000073]">
-                        <Link className="mx-4 my-1 text-xs" to={"/home"}>Home</Link>
-                        </button>
+                       <Link to={"/home"}><button className=" text-[#faebd7] rounded-full bg-[#00000073]">
+                        <h4 className="mx-4 my-1 text-xs">Home</h4>
+                        </button></Link>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@ function LandingPage() {
                 <h1 className="text-[#faebd7] text-8xl">This moment is</h1>
                 <h1 className="text-9xl">yours</h1>
             </div>
-            {isLoginClicked ? <Login open={open} setOpen={setOpen} isSignupPage={isSignupPage} setIsSignupPage={setIsSignupPage}/> : null}
+            {isLoginClicked ? <Login open={open} setOpen={setOpen}/> : null}
             <img 
             className=""
              src="https://images.pexels.com/photos/1564868/pexels-photo-1564868.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" />

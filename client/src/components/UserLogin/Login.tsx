@@ -1,4 +1,4 @@
-import { Fragment, useRef} from 'react'
+import { Fragment, useRef ,useState} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Signup from '../UserSignup/UserSignup';
 
@@ -6,14 +6,13 @@ import Signup from '../UserSignup/UserSignup';
 interface LoginProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    isSignupPage:boolean;
-    setIsSignupPage:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
 
 
-function Login({ open, setOpen,isSignupPage,setIsSignupPage }: LoginProps) {
+function Login({ open, setOpen}: LoginProps) {
+    const [isSignupPage,setIsSignupPage] =useState(false)
     const cancelButtonRef = useRef(null)
     const handleCloseModal = () => {
         setIsSignupPage(false);
