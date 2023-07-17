@@ -12,6 +12,9 @@ export default {
       minWidth: {
         'fill': '-webkit-fill-available',
       },
+      textAlign: {
+        'webkit-center': '-webkit-center',
+      },
     },
   },
   plugins: [],

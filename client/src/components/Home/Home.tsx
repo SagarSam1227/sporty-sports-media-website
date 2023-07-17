@@ -1,10 +1,12 @@
-import Header from "../Layout/Header/header";
+import Sidebar from "../Layout/Header/Sidebar";
+import Navbar from "../Layout/Header/Navbar";
 
 
 function Home(){
     return (
         <>
-        <Header />
+        <Sidebar />
+        <Navbar />
         </>
     )
 }
