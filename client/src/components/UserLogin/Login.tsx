@@ -1,19 +1,23 @@
 import { Fragment, useRef ,useState} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Signup from '../UserSignup/UserSignup';
-
-
-interface LoginProps {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-
+import { LoginProps } from '../../vite-env';
+import { setUser } from '../../redux/Slices/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 function Login({ open, setOpen}: LoginProps) {
     const [isSignupPage,setIsSignupPage] =useState(false)
     const cancelButtonRef = useRef(null)
+    const [email,setEmail] = useState<string | null>(null)
+    const dispatch = useDispatch()
+
+    const handleItem=()=>{
+        dispatch(setUser({email:email,username:'sagar'}))
+
+    }
+   
+
     const handleCloseModal = () => {
         setIsSignupPage(false);
         setOpen(false);
@@ -61,7 +65,10 @@ function Login({ open, setOpen}: LoginProps) {
                                             >
                                                 Email
                                             </label>
-                                            <input
+                                            <input onChange={(e)=>{
+                                                setEmail(e.target.value)
+                                            }}
+                                            name='email'
                                                 type="email"
                                                 className="block w-full px-4 py-2 mt-2 text-[#ffffffba] bg-[#0000005e] rounded-md focus:border-slate-900 "
                                             />
@@ -73,6 +80,7 @@ function Login({ open, setOpen}: LoginProps) {
                                                 Password
                                             </label>
                                             <input
+                                            name='password'
                                                 type="password"
                                                 className="block w-full px-4 py-2 mt-2 text-[#ffffffba] bg-[#0000005e] rounded-md"
 
@@ -85,7 +93,9 @@ function Login({ open, setOpen}: LoginProps) {
                                             Forget Password?
                                         </a>
                                         <div className="mt-6">
-                                            <button className="w-full px-4 py-2 tracking-wide font-semibold uppercase text-sm text-black transition-colors duration-200 transform bg-[#fffc] rounded-md hover:bg-[#00000059] focus:outline-none">
+                                            <button onClick={()=>{
+                                                handleItem()
+                                            }} className="w-full px-4 py-2 tracking-wide font-semibold uppercase text-sm text-black transition-colors duration-200 transform bg-[#fffc] rounded-md hover:bg-[#00000059] focus:outline-none">
                                                 Login
                                             </button>
                                         </div>

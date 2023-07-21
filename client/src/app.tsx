@@ -1,17 +1,29 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import LandingPage from './components/LandingPage/LandingPage'
-// import Footer from './components/Layout/Footer/Footer'
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider,useLocation, Outlet } from 'react-router-dom'
 import Home from './components/Home/Home'
+import Header from './components/Layout/Header/Header'
+import UserDetails from './components/UserProfile/UserDetails'
+import { Provider } from 'react-redux'
+import store from './redux/App/store'
 
 function Container() {
+  const location = useLocation();
+
+  if (location.pathname === "/") {
+    return <Outlet />;
+  }
+
   return (
     <>
+    <Provider store={store}>
+    <Header />
       <Outlet />
-      {/* <Footer /> */}
+      <UserDetails />
+    </Provider>
     </>
-  )
+  );
 }
 
 const AppRouter = createBrowserRouter([
@@ -23,10 +35,11 @@ const AppRouter = createBrowserRouter([
         path: "/",
         element: <LandingPage />
       },
-    {
-      path: "/home",
-      element: <Home />
-    }]
+      {
+        path: "/home",
+        element: <Home />
+      }
+    ]
   }
 ])
 
