@@ -1,14 +1,71 @@
+import { useState, useEffect } from "react";
+import { LoginProps } from "../../vite-env";
+import axios from "axios";
 
-interface LoginProps {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    isSignupPage:boolean;
-    setIsSignupPage:React.Dispatch<React.SetStateAction<boolean>>;
-}
+function Signup({ setOpen, setIsSignupPage }: LoginProps) {
+    const [userName, setUserName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [contact, setContact] = useState('')
+    const [isSignUpClicked, setIsSignUpClicked] = useState(false)
 
-function Signup({setOpen,setIsSignupPage}:LoginProps) {
 
-    
+    // for validation-------------------------------------------------
+
+    // const [isUsernameValidated, setIsUsernameValidated] = useState(false)
+    // const [isEmailValidated, setIsEmailValidated] = useState(false)
+    // const [isPasswordValidated, setIsPasswordValidated] = useState(false)
+    // const [isContactValidated, setIsContactValidated] = useState(false)
+
+
+    // const validation = (field, value) => {
+    //     if (field == 'username') {
+    //         setIsUsernameValidated(true)
+    //     } else if (field == 'email') {
+    //         const regex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //         const output = regex.test(value)
+    //         if (output) {
+    //             setIsEmailValidated(true)
+    //         }
+    //     }else if (field=='password'){
+    //         if (value.length < 8) {
+    //             set
+    //           }
+    //     }
+    // }
+
+
+
+    useEffect(() => {
+
+        if (isSignUpClicked) {
+            console.log('signup api called');
+            
+            const API_URL = 'http://localhost:3000/api/user/add-user';
+
+            const data = {
+                username: userName,
+                email: email,
+                password: password,
+                contact: contact,
+            };
+
+
+            axios.post(API_URL, data)
+                .then((response) => {
+                    console.log('SignUp successful:', response.data);
+                    setIsSignupPage(false)
+                    // setOpen(true)
+                })
+                .catch((error) => {
+                    console.error('SignUp error:', error);
+                });
+        }
+    }, [isSignUpClicked]);
+
+
+
+
 
     return (
         <div className="w-full p-6 m-auto mt-11 bg-[#00000066] rounded-md shadow-xl lg:max-w-xl ">
@@ -22,7 +79,9 @@ function Signup({setOpen,setIsSignupPage}:LoginProps) {
                     >
                         Username
                     </label>
-                    <input
+                    <input onChange={(e) => {
+                        setUserName(e.target.value)
+                    }}
                         type="text"
                         className="block w-full px-4 py-2 mt-2 text-[#ffffffba] bg-[#0000005e] rounded-md"
                     />
@@ -33,7 +92,9 @@ function Signup({setOpen,setIsSignupPage}:LoginProps) {
                     >
                         E-mail
                     </label>
-                    <input
+                    <input onChange={(e) => {
+                        setEmail(e.target.value)
+                    }}
                         type="email"
                         className="block w-full px-4 py-2 mt-2 text-[#ffffffba] bg-[#0000005e] rounded-md"
 
@@ -45,7 +106,9 @@ function Signup({setOpen,setIsSignupPage}:LoginProps) {
                     >
                         Mobile :
                     </label>
-                    <input
+                    <input onChange={(e) => {
+                        setContact(e.target.value)
+                    }}
                         type=""
                         className="block w-full px-4 py-2 mt-2 text-[#ffffffba] bg-[#0000005e] rounded-md"
 
@@ -57,22 +120,17 @@ function Signup({setOpen,setIsSignupPage}:LoginProps) {
                     >
                         Password
                     </label>
-                    <input
+                    <input onChange={(e) => {
+                        setPassword(e.target.value)
+                    }}
                         type="password"
                         className="block w-full px-4 py-2 mt-2 text-[#ffffffba] bg-[#0000005e] rounded-md"
 
                     />
                 </div>
-                {/* <a
-                    href="#"
-                    className="text-xs text-[#eeeeeea1] hover:underline"
-                >
-                    Forget Password?
-                </a> */}
                 <div className="mt-6">
-                    <button onClick={()=>{
-                        setIsSignupPage(false)
-                        setOpen(true)
+                    <button onClick={() => {
+                        setIsSignUpClicked(true)
                     }} className="w-full px-4 py-2 tracking-wide font-semibold uppercase text-sm text-black transition-colors duration-200 transform bg-[#fffc] rounded-md hover:bg-[#00000059] focus:outline-none">
                         SignUp
                     </button>
@@ -118,10 +176,10 @@ function Signup({setOpen,setIsSignupPage}:LoginProps) {
             <p className="mt-8 text-xs font-light text-center text-[#eeeeeea1]">
                 {" "}
                 Already have an account?{" "}
-                <a onClick={()=>{
-                                            setIsSignupPage(false)
-                                            setOpen(true)
-                                        }}
+                <a onClick={() => {
+                    setIsSignupPage(false)
+                    setOpen(true)
+                }}
                     href="#"
                     className="font-medium text-white hover:underline"
                 >

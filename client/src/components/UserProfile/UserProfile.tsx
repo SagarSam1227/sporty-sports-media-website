@@ -1,6 +1,23 @@
+import { useDispatch } from "react-redux";
+import { RootState } from "../../vite-env";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { clearUserDetails } from "../../redux/Slices/userSlice";
+
 
 
 function UserProfile() {
+
+    const userDetails:any= useSelector<RootState>((store) => store.user);
+
+    const username = userDetails.items?.username
+
+    const dispatch = useDispatch()
+
+    const handleItem = () => {
+        dispatch(clearUserDetails())
+    }
+
+
     
     
 
@@ -19,7 +36,7 @@ function UserProfile() {
                     </div>
                 </div>
                 <div className="h-[1.5rem]">
-                    <h1 className="font-bold text-lg text-center mt-[1rem] text-gray-950">Sagar Sam</h1>
+                    <h1 className="font-bold text-lg text-center mt-[1rem] text-gray-950">{username}</h1>
                 <hr className="w-[14rem] mx-[2.5rem] mt-[2rem] mb-3" />
                 </div>
                 <button className="h-16 w-full hover:bg-[#f8feff] mt-[3rem]">
@@ -31,12 +48,16 @@ function UserProfile() {
                 <button className="h-16 w-full hover:bg-[#f8feff]">
                     <h1 className="font-semibold text-[#808080] hover:text-black">Favorites</h1>
                 </button>
-                <button className="h-16 w-full hover:bg-[#f8feff]">
+                <button  onClick={()=>{
+                    handleItem()
+                }} className="h-16 w-full hover:bg-[#f8feff]">
                     <h1 className="font-semibold text-[#808080] hover:text-[#196180]">Logout</h1>
                 </button>
             </div> 
+
         </>
     )
 }
 
 export default UserProfile;
+

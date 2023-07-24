@@ -13,4 +13,14 @@ export interface User {
   export interface LoginProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    isSignupPage:boolean;
+    setIsSignupPage:React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+export interface userResponse{
+  data : {
+     username:string 
+     email:string
+  }
 }

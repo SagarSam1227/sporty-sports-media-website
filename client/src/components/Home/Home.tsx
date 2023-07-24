@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { RootState } from "../../vite-env";
+import { RootState} from "../../vite-env";
 
 
 function Home() {
@@ -9,13 +9,12 @@ function Home() {
       interface MyDataType {
           largeImageURL: string
         }
-        const userDetails:any = useSelector<RootState>((store) => store.user);
+        const userDetails:any= useSelector<RootState>((store) => store.user);
 
         const username = userDetails.items?.username
 
     const [data, setData] = useState<Array<MyDataType>>([]);
 
-    console.log(userDetails);
     
 
 
