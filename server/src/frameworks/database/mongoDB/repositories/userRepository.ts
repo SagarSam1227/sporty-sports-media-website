@@ -2,17 +2,18 @@ import { userInterface } from "../../../../types/userInterface";
 import User from "../models/userModel";
 
 export const userRepository = () => {
-    const addUser = async (user: {
-        username: string;
-        email: string;
-        password?: string;
-    }) => {
+    const addUser = async (user:userInterface) => {
         return await User.create(user)
     }
 
     const getUserByEmail = async (email: String) => {
         const user: userInterface | null = await User.findOne({ email: email })
-        return user;
+        if(user){
+            return user;
+        }else{
+            console.log('data cannot fetched');
+            
+        }
 
     }
 

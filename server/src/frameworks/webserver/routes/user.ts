@@ -9,7 +9,7 @@ const userRouter = ()=>{
 
     const controller = userController(userDbRepository,userRepository)
 
-    router.get('/get-by-email',controller.getUserByEmail);
+    router.post('/get-by-email',controller.getUserByEmail);
 
     router.post('/add-user',controller.registerUser)
 
