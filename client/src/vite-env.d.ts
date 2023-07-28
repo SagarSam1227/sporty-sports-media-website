@@ -1,3 +1,5 @@
+
+
 export interface RootState {
     user:object[]
     // Add other slices and their respective states here
@@ -13,14 +15,27 @@ export interface User {
   export interface LoginProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    isSignupPage:boolean;
+    isSignupPage?:boolean;
     setIsSignupPage:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
 export interface userResponse{
-  data : {
-     username:string 
-     email:string
-  }
+  ioken:string
+  data:object
+}
+
+
+export interface UserNotFoundProps {
+  message1:string,
+  message2:string,
+  onUserDismiss:()=>void
+}
+
+
+export interface formikInitialValues {
+  username:string,
+  email:string,
+  password:string,
+  contact:string
 }

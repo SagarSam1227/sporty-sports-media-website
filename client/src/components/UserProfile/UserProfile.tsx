@@ -15,6 +15,7 @@ function UserProfile() {
 
     const handleItem = () => {
         dispatch(clearUserDetails())
+        localStorage.removeItem('authToken')
     }
 
 
@@ -32,7 +33,7 @@ function UserProfile() {
                     </div>
                 </div>
                 <div className="h-28 text-center">
-                    <div className="rounded-full bg-[url('/public/assets/linkedInmain.png')] h-28 w-28 mx-[6rem] bg-repeat-round">
+                    <div className="rounded-full bg-[url('/public/assets/profile.png')] h-28 w-28 mx-[6rem] bg-repeat-round">
                     </div>
                 </div>
                 <div className="h-[1.5rem]">
