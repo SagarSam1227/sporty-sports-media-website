@@ -1,39 +1,52 @@
 import asyncHandler from "express-async-handler"
-import { Request,Response } from "express"
-import { findByEmail } from "../../application/useCases/user/findByEmail"
-import {createUser} from "../../application/useCases/user/createUser"
-import { userDbInterface} from "../../application/repositories/userDbRepository"
+import { NextFunction, Request, Response, response } from "express"
+import registerUser from "../../application/useCases/user/register"
+import { userDbInterface } from "../../application/repositories/userDbRepository"
 import { userRepository } from "../../frameworks/database/mongoDB/repositories/userRepository"
-import { userInterface } from "../../types/userInterface"
+import { authServiceInterfaceType } from "../../application/services/authServiceInterface"
+import { AuthService } from "../../frameworks/services/authServices"
+import findById from "../../application/useCases/user/findById"
+
 
 const userController = (
-    userDbRepository:userDbInterface,
-    userDbRepositoryImp:userRepository)=>{
-    const dbRepositoryUser = userDbRepository(userDbRepositoryImp())
+    userDbRepositoryInterface: userDbInterface,
+    userDbReposImp: userRepository,
+    authServiceInterface: authServiceInterfaceType,
+  authServiceImp: AuthService) => {
+        const repository = userDbRepositoryInterface(userDbReposImp())
+        const services = authServiceInterface(authServiceImp())
 
-    const getUserByEmail = asyncHandler(async(req:Request,res:Response)=>{
-        const {email} = req.body
-        const user = await findByEmail(email,dbRepositoryUser)
-        res.json(user)
+        const createUser = (req:Request,res:Response,next:NextFunction)=>{
+            const {username,password,email,contact} = req.body;
+            console.log(req.body);
+            console.log(username);
+            
+            
 
-        
-    })
+            
+            registerUser(username,email,password,contact,repository,services).then((result:object) => {
+                console.log('response isssssssssssssss',result);
+                res.json(result)
+            }).catch((err:Error) => {
+                next(err)
+            });
+        }
 
-    const registerUser = asyncHandler(async(req:Request,res:Response)=>{
-        console.log(req.body);
-        
-        const user:userInterface = req.body
-       await createUser(user,dbRepositoryUser)
-       
-       res.json({
-        status:'success'
-       })
-
-    })
+        const getUserDetails = (req:Request,res:Response)=>{
+            const {user} = req.body.id
+            console.log(user);
+            findById(user.id,repository).then((response:object)=>{
+                    console.log('response is.............',response);
+                    res.json(response)
+            })
+            
+            
+        }
+  
 
     return {
-        getUserByEmail,
-        registerUser
+        createUser,
+        getUserDetails
     }
 
 }

@@ -1,21 +1,39 @@
-import {  AuthServiceReturn } from "../../frameworks/services/authServices";
+import { userDbInterface } from "../../application/repositories/userDbRepository";
+import { authServiceInterfaceType } from "../../application/services/authServiceInterface";
+import { userRepository } from "../../frameworks/database/mongoDB/repositories/userRepository";
+import { AuthService } from "../../frameworks/services/authServices";
+import asyncHandler from "express-async-handler";
+import { NextFunction, Request } from "express";
+import { Response } from "express";
+import userAuth from "../../application/useCases/auth/userAuth";
 
-export const authServiceInterface=(service:AuthServiceReturn) => {
-    const encryptPassword = (password:string) => service.encryptPassword(password);
-  
-    const comparePassword = (password:string, hashedPassword:string) =>
-      service.comparePassword(password, hashedPassword);
-  
-    const verifyPassword = (token:string) => service.verifyToken(token)
-  
-    const generateToken = (payload:string) => service.generateToken(payload);
-  
-    return {
-      encryptPassword,
-      comparePassword,
-      verifyPassword,
-      generateToken
-    };
+const authController = (
+  userDbRepositoryInterface: userDbInterface,
+  userDbReposImp: userRepository,
+  authServiceInterface: authServiceInterfaceType,
+  authServiceImp: AuthService) => {
+
+  const repository = userDbRepositoryInterface(userDbReposImp())
+  const services = authServiceInterface(authServiceImp())
+
+  const userLogin= asyncHandler(async (req: Request, res: Response ,next:NextFunction) => {
+    const { email,password } = req.body
+    console.log(req.body,'req.bodyyyyyyyyyyyy');
+    
+
+    
+     userAuth(email, password, repository, services)
+     .then((result:any) =>{
+      res.json(result)
+    })
+     .catch((error:any) => {
+      next(error)
+    });
+}) 
+
+return {
+  userLogin,
 }
 
-export type AuthServiceInterface = typeof authServiceInterface
+}
+export default authController;
