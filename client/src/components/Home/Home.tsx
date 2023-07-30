@@ -14,6 +14,7 @@ function Home() {
       interface MyDataType {
           largeImageURL: string
         }
+
         const userDetails:any= useSelector<RootState>((store) => store.user);
 
         const username = userDetails.items?.username
@@ -21,6 +22,10 @@ function Home() {
         const dispatch = useDispatch()
 
     const [data, setData] = useState<Array<MyDataType>>([]);
+
+    const handleItem=(email:string,username:string)=>{
+        dispatch(setUser({email:email,username:username}))
+    }
 
     const handleItem=(email:string,username:string)=>{
         dispatch(setUser({email:email,username:username}))
