@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import jwt, { decode } from 'jsonwebtoken'
 import configKeys from '../../config';
 
 export const authService=()=>{
@@ -9,9 +9,18 @@ export const authService=()=>{
         return password
     }
 
-    const comparePassword=(password:string,hashedPassword:string)=>{
-       return bcrypt.compare(password,hashedPassword)
-    }
+    const comparePassword = (password: string, hashedPassword: string) => {
+        // Check if the password and hashedPassword are defined and non-empty strings
+        console.log(password,'passssssworddddddddd');
+        console.log(hashedPassword,'hasheedddddd');
+        
+        
+        if (!password || typeof password !== 'string' || !hashedPassword || typeof hashedPassword !== 'string') {
+          throw new Error('Invalid arguments: password and hashedPassword must be non-empty strings.');
+        }
+      
+        return bcrypt.compare(password, hashedPassword);
+      };
 
     const generateToken=(payload:string)=>{
         const token = jwt.sign({payload}, configKeys.JWT_SECRET_KEY, {
@@ -22,6 +31,8 @@ export const authService=()=>{
 
     const verifyToken=(token:string)=>{
         return jwt.verify(token, configKeys.JWT_SECRET_KEY)
+        
+        
     }
 
     return {
@@ -33,6 +44,6 @@ export const authService=()=>{
 }
 
 
-export type AuthService = typeof authService 
+export type AuthService = typeof authService
 
 export type AuthServiceReturn = ReturnType<AuthService>

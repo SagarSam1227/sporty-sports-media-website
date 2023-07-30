@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import DarkModeContext from "../../../utils/DarkModeContext";
 import { useState, useContext } from "react";
 
@@ -55,7 +56,7 @@ function Sidebar() {
                     </button>
                     {isMouseOver1 || buttonClicked==='home'? <hr className="h-0.5 bg-[#1c0000] border-0 dark:bg-gray-700"></hr> : null}
 
-
+                    <Link to={'/home/news'}>
                     <button onMouseOver={() => {
                         setIsMouseOver2(true)
                     }} onMouseLeave={() => {
@@ -71,6 +72,7 @@ function Sidebar() {
 
 
                     </button>
+                    </Link>
                     {isMouseOver2 || buttonClicked==='news'? <hr className="h-0.5 bg-[#1c0000] border-0 dark:bg-gray-700"></hr> : null}
                     <button onMouseOver={() => {
                         setIsMouseOver3(true)
