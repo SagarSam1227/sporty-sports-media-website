@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from "express";
 
 export default function errorHandlingMiddleware(err: any, req: Request, res: Response, next: NextFunction) {
   err.statusCode = err.statusCode || 500; // Default to 500 Internal Server Error if statusCode is not provided
