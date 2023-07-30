@@ -19,8 +19,33 @@ export interface User {
 
 
 export interface userResponse{
+<<<<<<< Updated upstream
   data : {
      username:string 
      email:string
   }
+=======
+  ioken:string
+  data:object
+}
+
+
+export interface UserNotFoundProps {
+  message1:string,
+  message2:string,
+  onUserDismiss:()=>void
+}
+
+
+export interface formikInitialValues {
+  username:string,
+  email:string,
+  password:string,
+  contact:string
+}
+
+export interface darkmodeInterface {
+  isDarkmode:boolean,
+  setIsDarkmode:(value:boolean)=>void
+>>>>>>> Stashed changes
 }
