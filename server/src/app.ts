@@ -20,4 +20,3 @@ serverConfig(server).startServer()
 routes(app)
 
 app.use(errorHandlingMiddleware)
-

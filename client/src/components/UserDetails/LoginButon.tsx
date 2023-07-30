@@ -15,6 +15,7 @@ function LogInButton(){
             LOGIN
     </button> 
     {isLoginClicked ? <Login open={open} setOpen={setOpen} /> : null}
+    
     </>
     )
 }

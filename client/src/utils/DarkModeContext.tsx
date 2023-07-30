@@ -1,5 +1,12 @@
-import {createContext} from 'react'
+import { createContext } from 'react';
+import { darkmodeInterface } from '../vite-env';
 
-const DarkMode = createContext<boolean>(false)
+// Provide an object with the same shape as darkmodeInterface as the default value
+const defaultDarkModeValue: darkmodeInterface = {
+  isDarkmode: false,
+  setIsDarkmode: (value: boolean) => void{},
+}
 
-export default DarkMode;
+const DarkModeContext = createContext<darkmodeInterface>(defaultDarkModeValue);
+
+export default DarkModeContext;

@@ -1,4 +1,4 @@
-import { entityInterface, userInterface } from "../../types/userInterface";
+import { entityInterface} from "../../types/userInterface";
 import { userRepository } from "../../frameworks/database/mongoDB/repositories/userRepository";
 
 export const userDbRepository = (repository: ReturnType<userRepository>) => {

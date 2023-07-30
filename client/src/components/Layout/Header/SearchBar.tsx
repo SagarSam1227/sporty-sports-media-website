@@ -1,4 +1,9 @@
+import {useContext} from "react"
+import DarkModeContext from "../../../utils/DarkModeContext";
+
 function SearchBar(){
+  const {isDarkmode} = useContext(DarkModeContext)
+
     return (
         <>
           <div className="md:w-56 md:float-left h-1 hidden md:flex md:ml-60"></div>
@@ -7,7 +12,7 @@ function SearchBar(){
   <div className=" hidden md:flex md:mt-16">
     <input
       type=""
-     className="rounded-full w-64 fixed bg-[#f5f5f5] drop-shadow-lg md:h-10 p-[1rem] pr-10"
+     className={`rounded-full w-64 fixed ${isDarkmode?"bg-[#b8bac0]":"bg-[#f5f5f5]"} bg-[#f5f5f5] drop-shadow-lg md:h-10 p-[1rem] pr-10`}
       aria-label="Search"
       // aria-describedby="button-addon2" 
       />

@@ -2,8 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { RootState} from "../../vite-env";
-import { setUser } from "../../redux/Slices/userSlice";
+import AllPosts from "../Features/AllPosts";
 import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/Slices/userSlice";
+import { Route, Routes } from "react-router-dom";
+import News from "../Features/News";
 
 
 function Home() {
@@ -20,16 +23,16 @@ function Home() {
 
     const [data, setData] = useState<Array<MyDataType>>([]);
 
+
     const handleItem=(email:string,username:string)=>{
         dispatch(setUser({email:email,username:username}))
     }
 
-    
-
-
-    useEffect(() => {
-
-        const token = localStorage.getItem('authToken');  // Retrieve the token from Local Storage
+    useEffect(()=>{
+        const token = localStorage.getItem('authToken');
+        
+        console.log(token,333333);
+        // Retrieve the token from Local Storage
         
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
@@ -43,29 +46,18 @@ function Home() {
               }
         })
     }
-
-
-        axios.get("https://pixabay.com/api/?key=38335937-ff43c3ccd5cc0e0665bf8187d&q=sports&image_type=photo&per_page=50&pretty=true").then(response => {
-            console.log(response.data.hits[0].largeImageURL);
-            setData(response.data.hits)
-        }).catch(error => {
-            console.log(error);
-
-        }
-        )
-    }, [])
+    })
 
 
     return (
         <div className={`md:float-left ml-40 grid grid-cols-2 gap-1 row-auto columns-4 md:ml-[-13rem] rounded-md h-[30rem] overflow-y-scroll no-scrollbar md:mt-20 ${username? "w-1/2" : "w-3/4"}`}>
-            {data?.map((e) => {
-                return (
-                    <div className="bg-black rounded-md justify-center">
-                        <img className=" rounded-md" src={e.largeImageURL} alt="" />
-                    </div>
-                )
-            })}
-
+           
+           <Routes>
+           <Route path="/" element={<AllPosts />} />
+           <Route path="/news" element={<News />} />
+           <Route path="/" element={<AllPosts />} />
+           <Route path="/" element={<AllPosts />} />
+           </Routes>
 
         </div>
     )
