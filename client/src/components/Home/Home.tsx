@@ -23,9 +23,6 @@ function Home() {
 
     const [data, setData] = useState<Array<MyDataType>>([]);
 
-    const handleItem=(email:string,username:string)=>{
-        dispatch(setUser({email:email,username:username}))
-    }
 
     const handleItem=(email:string,username:string)=>{
         dispatch(setUser({email:email,username:username}))
