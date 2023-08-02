@@ -1,6 +1,103 @@
-function Create(){
+import { useSelector } from "react-redux";
+import { RootState } from "../../vite-env";
+import { MouseEventHandler, useState, useEffect, useRef } from "react"
+
+
+
+
+function Create() {
+    const userDetails: any = useSelector<RootState>((store) => store.user);
+    const [inputFile, setInputFile] = useState<File | null>(null)
+    const [objectURL, setObjectURL] = useState<string | null>(null)
+    const [isUploadClicked,setIsUploadClicked] = useState<boolean>(false)
+
+
+    const username = userDetails.items?.username
+
+    const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file: File | null = event.target.files?.[0];
+        setInputFile(file);
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setObjectURL(url);
+        }
+    };
+
+    const clearImage: MouseEventHandler<HTMLDivElement> = () => {
+        setInputFile(null)
+        if (objectURL) {
+            URL.revokeObjectURL(objectURL);
+        }
+    }
+
+    const uploadImage = ()=>{
+        setIsUploadClicked(true)
+    }
+
+    useEffect(()=>{
+        if(isUploadClicked){
+            // uload Image.....
+            console.log(inputFile);
+            
+        }
+    },[isUploadClicked])
+
+
+    useEffect(() => {
+        return () => {
+            if (objectURL) {
+                URL.revokeObjectURL(objectURL);
+            }
+        };
+    }, [objectURL]);
+
+
+
     return (
-        <h1>createeeeeeee</h1>
+        <>
+            <div className={`md:float-left ml-40 grid gap-1 row-auto  columns-4 md:ml-[-13rem] rounded-md h-[30rem] overflow-y-scroll no-scrollbar md:mt-12 ${username ? "w-1/2" : "w-3/4"}`}>
+                <div className=" md:w-1/2 w-full justify-center self-center place-self-center">
+                    <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2  rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        {inputFile ?
+                            <div className="w-full h-full flex items-center justify-center">
+                                <img
+                                    src={URL.createObjectURL(inputFile)}
+                                    alt=""
+                                    className="object-contain max-w-full max-h-full"
+                                />
+                            </div>
+                            : <><div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                            </div><input id="dropzone-file" type="file" className="hidden" onChange={handleFileInputChange} /></>}
+                    </label>
+                    {inputFile ?
+                        <div className="flex justify-between mt-4">
+                            <div onClick={clearImage} className="flex gap-2">
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                        <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clipRule="evenodd" />
+                                    </svg>
+                                </button>
+                                <button className="font-bold text-[#a007076b]">clear</button>
+                            </div>
+                            <div onClick={uploadImage} className="flex gap-2">
+                                <button className="font-bold text-[#5f9ea0]">upload</button>
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                        <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm.53 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v5.69a.75.75 0 001.5 0v-5.69l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clipRule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                        </div> : null}
+                </div>
+
+            </div>
+        </>
     )
 }
 

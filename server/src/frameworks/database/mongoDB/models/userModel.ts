@@ -15,6 +15,9 @@ const userSchema = new Schema(
         },
         contact:{
             type:String,
+        },
+        posts:{
+            type:Array
         }
     }
 )
