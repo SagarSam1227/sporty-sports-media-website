@@ -50,3 +50,13 @@ export interface MyDataType {
   image: string;
   // other properties if present
 }
+
+
+interface ImportMetaEnv {
+  VITE_AUTH_URL: string;
+  // Define other environment variables here
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

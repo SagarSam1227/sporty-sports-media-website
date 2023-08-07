@@ -5,10 +5,9 @@ import { RootState } from "../../vite-env";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/Slices/userSlice";
 import { MyDataType } from "../../vite-env";
+import { AUTH_URL, GETPOST_URL } from "../../api/URLs";
 
 function Home() {
-
-
   const userDetails: any = useSelector<RootState>((store) => store.user);
 
   const username = userDetails.items?.username;
@@ -17,20 +16,26 @@ function Home() {
 
   const [data, setData] = useState<Array<MyDataType>>([]);
 
+  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
+
   const handleItem = (email: string, username: string) => {
     dispatch(setUser({ email: email, username: username }));
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    // const token = localStorage.getItem("authToken");
 
-    console.log(token, 333333);
+    const GETPOST_API = GETPOST_URL;
+
+    const AUTH_API = AUTH_URL;
+
+    // console.log(token, 333333);
     // Retrieve the token from Local Storage
 
-    const POST_URL = "http://localhost:3000/api/post";
+    console.log(GETPOST_API, "sssksk", AUTH_API);
 
     axios
-      .get(POST_URL)
+      .get(GETPOST_API)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
@@ -39,12 +44,10 @@ function Home() {
         console.log(error);
       });
 
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    const HOME_URL = "http://localhost:3000/api/home";
-
-    if (token) {
-      axios.get(HOME_URL).then((response) => {
+    // if (token) {
+      axios.get(AUTH_API).then((response) => {
         if (
           response &&
           response.data &&
@@ -55,7 +58,7 @@ function Home() {
           handleItem(email, username);
         }
       });
-    }
+    // }
   }, []);
 
   return (
@@ -64,14 +67,12 @@ function Home() {
         username ? "w-1/2" : "w-3/4"
       }`}
     >
-      {data?.map((e:MyDataType) => {
+      {data?.map((e: MyDataType) => {
         return (
           <div className="bg-black rounded-md justify-center">
             <img
               className=" rounded-md"
-              src={`https://res.cloudinary.com/${"dcs2ybdst"}/image/upload/${
-                e.image
-              }.jpg`}
+              src={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${e.image}.jpg`}
               alt=""
             />
           </div>
