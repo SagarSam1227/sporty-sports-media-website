@@ -45,3 +45,8 @@ export interface darkmodeInterface {
   isDarkmode:boolean,
   setIsDarkmode:(value:boolean)=>void
 }
+
+export interface MyDataType {
+  image: string;
+  // other properties if present
+}

@@ -6,12 +6,15 @@ import serverConfig from './frameworks/webserver/server';
 import expressConfig from './frameworks/webserver/express';
 import routes from './frameworks/webserver/routes';
 import errorHandlingMiddleware from './frameworks/webserver/middlewares/errorHandlingMiddleware';
+import cloudinaryConfig from './frameworks/webserver/connections/cloudinary';
 
 const app: Application = express();
 
 const server = http.createServer(app)
 
 connectDB()
+
+cloudinaryConfig()
 
 expressConfig(app)
 

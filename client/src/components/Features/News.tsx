@@ -11,26 +11,7 @@ function News() {
         <>
             <div className={`md:float-left ml-40 grid grid-cols-2 gap-1 row-auto columns-4 md:ml-[-13rem] rounded-md h-[30rem] overflow-y-scroll no-scrollbar md:mt-20 ${username ? "w-1/2" : "w-3/4"}`}>
                 <div className=" rounded-md justify-center">
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1> 
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
-                    <h1>newwwwwwwwsssss</h1>
+                    
                 </div>
             </div>
         </>
@@ -38,3 +19,4 @@ function News() {
 }
 
 export default News;
+

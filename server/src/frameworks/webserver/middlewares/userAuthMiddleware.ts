@@ -1,5 +1,8 @@
+import { RequestHandler } from "express";
 import { authService } from "../../services/authServices"
 import { Request, Response, NextFunction } from "express"
+
+
 
 // Middleware function for JWT token authentication
 const userAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
@@ -21,10 +24,10 @@ const userAuthMiddleware = (req: Request, res: Response, next: NextFunction) => 
     const { payload }: any = authService().verifyToken(token)
     console.log('this is payload......', payload, 393939393939939);
     if (payload) {
-      req.body.id = payload
+      req.payload= payload
       next()
     } else {
-      new Error('Invalid token');
+      throw new Error('Invalid token');
     }
   } catch (err) {
     return res.status(403).json({ message: 'Invalid token' });

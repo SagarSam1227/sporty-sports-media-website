@@ -8,8 +8,8 @@ function Sidebar() {
     const [isMouseOver2, setIsMouseOver2] = useState(false)
     const [isMouseOver3, setIsMouseOver3] = useState(false)
     const [isMouseOver4, setIsMouseOver4] = useState(false)
-
-    const [buttonClicked, setButtonClicked] = useState('home')
+    const currentUrl = window.location.href.slice(22)
+    const [buttonClicked, setButtonClicked] = useState(currentUrl)
 
 
 

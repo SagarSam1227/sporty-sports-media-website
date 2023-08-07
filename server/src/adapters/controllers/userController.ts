@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler"
-import { NextFunction, Request, Response, response } from "express"
+import { NextFunction, Request, Response } from "express"
 import registerUser from "../../application/useCases/user/register"
 import { userDbInterface } from "../../application/repositories/userDbRepository"
 import { userRepository } from "../../frameworks/database/mongoDB/repositories/userRepository"
@@ -12,37 +12,36 @@ const userController = (
     userDbRepositoryInterface: userDbInterface,
     userDbReposImp: userRepository,
     authServiceInterface: authServiceInterfaceType,
-  authServiceImp: AuthService) => {
-        const repository = userDbRepositoryInterface(userDbReposImp())
-        const services = authServiceInterface(authServiceImp())
+    authServiceImp: AuthService) => {
+    const repository = userDbRepositoryInterface(userDbReposImp())
+    const services = authServiceInterface(authServiceImp())
 
-        const createUser = (req:Request,res:Response,next:NextFunction)=>{
-            const {username,password,email,contact} = req.body;
-            console.log(req.body);
-            console.log(username);
-            
-            
+    const createUser = (req: Request, res: Response, next: NextFunction) => {
+        const { username, password, email, contact } = req.body;
+        console.log(req.body);
+        console.log(username);
 
-            
-            registerUser(username,email,password,contact,repository,services).then((result:object) => {
-                console.log('response isssssssssssssss',result);
-                res.json(result)
-            }).catch((err:Error) => {
-                next(err)
-            });
-        }
 
-        const getUserDetails = (req:Request,res:Response)=>{
-            const {user} = req.body.id
-            console.log(user);
-            findById(user.id,repository).then((response:object)=>{
-                    console.log('response is.............',response);
-                    res.json(response)
-            })
-            
-            
-        }
-  
+
+
+        registerUser(username, email, password, contact, repository, services).then((result: object) => {
+            console.log('response isssssssssssssss', result);
+            res.json(result)
+        }).catch((err: Error) => {
+            next(err)
+        });
+    }
+
+    const getUserDetails = (req: Request, res: Response) => {
+        const { user } = req.payload
+        console.log(user);
+        findById(user.id, repository).then((response: object) => {
+            console.log('response is.............', response);
+            res.json(response)
+        })
+
+    }
+
 
     return {
         createUser,

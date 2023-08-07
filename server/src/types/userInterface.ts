@@ -1,5 +1,6 @@
 import {userDbInterface} from "../application/repositories/userDbRepository"
 import {authServiceInterfaceType} from "../application/services/authServiceInterface"
+import { Request } from "express";
 
 export interface userInterface{
     username?:string;
@@ -30,3 +31,15 @@ export interface entityInterface{
     getPassword: () => void;
     getContact: () => void;
 }
+
+
+
+declare global {
+    namespace Express {
+      interface Request {
+        payload:{
+            user:{id:string}
+        }; // Replace 'string' with the appropriate type for your new field
+      }
+    }
+  }
