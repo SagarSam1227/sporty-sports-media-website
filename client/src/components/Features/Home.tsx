@@ -1,11 +1,10 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { RootState } from "../../vite-env";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/Slices/userSlice";
 import { MyDataType } from "../../vite-env";
-import { AUTH_URL, GETPOST_URL } from "../../api/URLs";
+import { authUrl, postUrl } from "../../api/axiosConnection";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
@@ -14,51 +13,27 @@ function Home() {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate()
+
   const [data, setData] = useState<Array<MyDataType>>([]);
 
   const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
 
-  const handleItem = (email: string, username: string) => {
-    dispatch(setUser({ email: email, username: username }));
-  };
+  const handleNavigate = (image: string)=>{
+    const data:object= {
+      image:image
+    }
+    navigate("/singlepost", { state:data});
+  }
+
 
   useEffect(() => {
-    // const token = localStorage.getItem("authToken");
+    
+    postUrl(setData)
+    authUrl(dispatch)
+    
 
-    const GETPOST_API = GETPOST_URL;
-
-    const AUTH_API = AUTH_URL;
-
-    // console.log(token, 333333);
-    // Retrieve the token from Local Storage
-
-    console.log(GETPOST_API, "sssksk", AUTH_API);
-
-    axios
-      .get(GETPOST_API)
-      .then((response) => {
-        console.log(response.data);
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-    // if (token) {
-      axios.get(AUTH_API).then((response) => {
-        if (
-          response &&
-          response.data &&
-          response.data.email &&
-          response.data.username
-        ) {
-          const { email, username } = response.data; // Destructure email and username from the response data
-          handleItem(email, username);
-        }
-      });
-    // }
+    
   }, []);
 
   return (
@@ -69,7 +44,9 @@ function Home() {
     >
       {data?.map((e: MyDataType) => {
         return (
-          <div className="bg-black rounded-md justify-center">
+          <div onClick={()=>{
+            handleNavigate(e.image)
+          }} className="bg-black rounded-md justify-center">
             <img
               className=" rounded-md"
               src={`https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${e.image}.jpg`}

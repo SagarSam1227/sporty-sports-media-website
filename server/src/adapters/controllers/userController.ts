@@ -25,7 +25,6 @@ const userController = (
 
 
         registerUser(username, email, password, contact, repository, services).then((result: object) => {
-            console.log('response isssssssssssssss', result);
             res.json(result)
         }).catch((err: Error) => {
             next(err)
@@ -36,7 +35,6 @@ const userController = (
         const { user } = req.payload
         console.log(user);
         findById(user.id, repository).then((response: object) => {
-            console.log('response is.............', response);
             res.json(response)
         })
 

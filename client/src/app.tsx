@@ -16,6 +16,7 @@ import Create from './components/Features/Create';
 import UserDetails from './components/UserDetails/UserDetails';
 import SinglePost from './components/Features/SinglePost';
 import updateBodyBackground from './utils/setupDarkmode';
+import SingleNews from './components/Features/SingleNews';
 
 function Container() {
   const [isDarkmode, setIsDarkmode] = useState(false);
@@ -66,6 +67,10 @@ const AppRouter = createBrowserRouter([
       {
         path: '/singlepost',
         element: <SinglePost />
+      },
+      {
+        path:'/singlenews',
+        element:<SingleNews />
       },
       {
         path: '/services',

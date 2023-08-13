@@ -2,11 +2,9 @@ import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Signup from "../UserSignup/UserSignup";
 import { LoginProps } from "../../vite-env";
-import { setUser } from "../../redux/Slices/userSlice";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import LoginForm from "./LoginForm";
-import { LOGIN_URL } from "../../api/URLs";
+import { loginUrl } from "../../api/axiosConnection";
 
 function Login({ open, setOpen }: LoginProps) {
   const [isSignupPage, setIsSignupPage] = useState<boolean>(false);
@@ -18,60 +16,16 @@ function Login({ open, setOpen }: LoginProps) {
   const dispatch = useDispatch();
   const [isLoginClicked, setIsLoginClicked] = useState<boolean>(false);
 
-  const handleItem = (email: string, userName: string) => {
-    dispatch(setUser({ email: email, username: userName }));
-  };
-
   const handleCloseModal = () => {
     setIsSignupPage(false);
     setOpen(false);
   };
 
-  // const dismissUserNotFound = () => {
-  //     setIsUserNotExist(false)
-  //     setOpen(true)
-  // }
-
-  // const resetLoginForm = () => {
-  //     setIsLoginClicked(false);
-  //     setIsUserNotExist(false);
-  //     setPassword('');
-  //     setEmail(null);
-  // };
-
   useEffect(() => {
     if (isLoginClicked) {
-      const LOGIN_API = LOGIN_URL;
 
-      const data = {
-        email: email,
-        password: password,
-      };
-      console.log("user and email...", data);
+      loginUrl(password, email, dispatch, setIsUserNotExist, setUserLoginErr);
 
-      axios
-        .post(LOGIN_API, data)
-        .then((response) => {
-          console.log(response);
-          if (response?.data?.token) {
-            localStorage.setItem("authToken", response.data.token);
-            console.log(response.data.user);
-            handleItem(
-              response.data?.user?.email,
-              response.data?.user?.username
-            );
-            setIsUserNotExist(false);
-          } else {
-            console.log("errorrrr");
-
-            setIsUserNotExist(true);
-          }
-        })
-        .catch((error) => {
-          setIsUserNotExist(true);
-          setUserLoginErr(error.response.data.message);
-          console.log("errrroorr isss", error);
-        });
     }
   }, [isLoginClicked, open, email, password]);
 

@@ -11,21 +11,20 @@ const postController = (
     const repository = postDbRepositoryInterface(postDbReposImp())
 
     const uploadPost = (req:Request, res: Response) => {
-        console.log(req.file);
         const { filename } = req.file || {}
         const {id} = req.payload.user
         
       if (filename) {
             addPost(filename,id,repository).then((response:object)=>{
                res.json(response)
+               
             })
         } 
     }
 
-    const getPost = (req:Request,res:Response) => {
-        fetchPost(repository).then((response:any)=>{
+    const getPost = async (req:Request,res:Response) => {
+      await fetchPost(repository).then((response:any)=>{
             res.json(response)
-            // console.log(response);
         })
     }
 

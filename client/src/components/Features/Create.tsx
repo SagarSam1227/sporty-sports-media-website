@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../vite-env";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/Slices/userSlice";
 import {
   MouseEventHandler,
   useState,
@@ -9,10 +8,9 @@ import {
   useRef,
   useContext,
 } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DarkModeContext from "../../utils/DarkModeContext";
-import { AUTH_URL, POST_URL } from "../../api/URLs";
+import { authUrl, uploadUrl } from "../../api/axiosConnection";
 
 function Create() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
@@ -26,10 +24,6 @@ function Create() {
   const username = userDetails.items?.username;
 
   const dispatch = useDispatch();
-
-  const handleItem = (email: string, username: string) => {
-    dispatch(setUser({ email: email, username: username }));
-  };
 
   const downloadImage = async () => {
     setIsUploadClicked(true);
@@ -56,56 +50,10 @@ function Create() {
   };
 
   useEffect(() => {
-    const AUTH_API = AUTH_URL;
-
-    const POST_API = POST_URL;
-
-    const token = localStorage.getItem("authToken");
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-    if (token) {
-      axios
-        .get(AUTH_API)
-        .then((response: { data: { email: any; username: any } }) => {
-          if (
-            response &&
-            response.data &&
-            response.data.email &&
-            response.data.username
-          ) {
-            const { email, username } = response.data; // Destructure email and username from the response data
-            handleItem(email, username);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    authUrl(dispatch);
 
     if (isUploadClicked && inputFile) {
-      const formData = new FormData();
-      formData.append("image", inputFile);
-
-      const config = {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      };
-
-      if (token) {
-        axios
-          .post(POST_API, formData, config)
-          .then((response) => {
-            if (response.data) {
-              navigate("/singlepost", { state: response.data });
-            }
-          })
-          .catch((err) => {
-            console.log("errrorrrr!!!");
-
-            console.log(err);
-          });
-      }
+      uploadUrl(inputFile, navigate);
     }
   });
 

@@ -8,8 +8,7 @@ import { Request, Response, NextFunction } from "express"
 const userAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
   let token: string | null = '';
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-    console.log('request is .....', req);
-    console.log('end of req....');
+
     token = req.headers.authorization.split(' ')[1];
   }
 
@@ -22,7 +21,6 @@ const userAuthMiddleware = (req: Request, res: Response, next: NextFunction) => 
   try {
     console.log('verification started....', token);
     const { payload }: any = authService().verifyToken(token)
-    console.log('this is payload......', payload, 393939393939939);
     if (payload) {
       req.payload= payload
       next()
@@ -30,6 +28,8 @@ const userAuthMiddleware = (req: Request, res: Response, next: NextFunction) => 
       throw new Error('Invalid token');
     }
   } catch (err) {
+    console.log(err);
+    
     return res.status(403).json({ message: 'Invalid token' });
   }
 };

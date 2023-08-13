@@ -1,13 +1,8 @@
-import { useDispatch } from "react-redux"
 import { setUser } from "../redux/Slices/userSlice"
 
 
 
-
-export const handleItem = (email: string, username: string) => {
-
-    const dispatch = useDispatch()
-
+export const handleItem = (email: string, username: string,dispatch:any)=> {
   dispatch(setUser({ email: email, username: username }))
 }
 
