@@ -14,9 +14,10 @@ import NearShops from './components/Features/Services/NearShops';
 import Turf from './components/Features/Services/Turf';
 import Create from './components/Features/Create';
 import UserDetails from './components/UserDetails/UserDetails';
-import SinglePost from './components/Features/SinglePost';
+import SinglePost from './components/Features/posts/SinglePost';
 import updateBodyBackground from './utils/setupDarkmode';
 import SingleNews from './components/Features/SingleNews';
+import EditUser from './components/Features/EditUser';
 
 function Container() {
   const [isDarkmode, setIsDarkmode] = useState(false);
@@ -71,6 +72,11 @@ const AppRouter = createBrowserRouter([
       {
         path:'/singlenews',
         element:<SingleNews />
+      },
+      {
+        path:'/edit-user',
+        element:<EditUser />
+
       },
       {
         path: '/services',

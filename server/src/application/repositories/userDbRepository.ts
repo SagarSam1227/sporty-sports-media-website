@@ -11,11 +11,14 @@ export const userDbRepository = (repository: ReturnType<userRepository>) => {
 
     const getUserByProperty = async(key:string,value:string) => await repository.findByProperty(key,value)
 
+    const profileUpdate = async(id: string, username: string | undefined, image: string | undefined) => repository.updateProfile(id,username,image)
+
     return {
         getUserByEmail,
         registerUser,
         getUserById,
-        getUserByProperty
+        getUserByProperty,
+        profileUpdate
     }
 }
 

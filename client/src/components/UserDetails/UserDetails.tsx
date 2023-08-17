@@ -8,11 +8,14 @@ import LogInButton from "./LoginButon";
 import UserProfile from "./UserProfile";
 import ChatList from "./ChatList";
 import Favorites from "./Favorites";
+import { useNavigate } from "react-router-dom";
 
 function UserDetails() {
   const { isDarkmode, setIsDarkmode }: darkmodeInterface =
     useContext(DarkModeContext);
   const [currentPage, setCurrentPage] = useState<string>("profile");
+  const [isSettings, setIsSettings] = useState<boolean>(false);
+const navigate = useNavigate()  
 
   const dispatch = useDispatch();
 
@@ -30,20 +33,86 @@ function UserDetails() {
     }
   };
 
+  const handleEdit = ()=>{
+    navigate('/edit-user')
+  }
+
+  const adjustSettings = () => {
+    if (isSettings) {
+      setIsSettings(false);
+    } else {
+      setIsSettings(true);
+    }
+  };
+
   if (userInfo.items.username) {
     if (isDarkmode) {
       return (
         <>
           <div className="w-[19rem] mx-8 h-[32rem] hidden md:block drop-shadow-2xl bg-[#21252b] rounded-2xl float-right">
             <div className=" h-10">
-              <div
+              <button
                 onClick={() => {
-                  adjustDarkmode();
+                  adjustSettings();
                 }}
                 className="w-[1.5rem] h-[1.5rem] float-right mt-[0.5rem] mr-[1rem]"
               >
-                <img src="/public/assets/brightness.png" alt="" />
-              </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="#c6c4c4"
+                  className="w-6 h-6 hover:rotate-[-45deg]"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
+                  />
+                </svg>
+                {isSettings ? (
+                  <>
+                    <button className="mt-4 ">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="#ebebeb"
+                        className="w-4 h-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => {
+                        adjustDarkmode();
+                      }}
+                      className="mt-3"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="#ebebeb"
+                        className="w-4 h-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+                        />
+                      </svg>
+                    </button>
+                  </>
+                ) : null}
+              </button>
             </div>
 
             {currentPage === "profile" ? (
@@ -154,17 +223,70 @@ function UserDetails() {
       <>
         <div className="w-[19rem] mx-8 h-[32rem] hidden md:block drop-shadow-2xl bg-[#f5f5f5] rounded-2xl float-right">
           <div className=" h-10">
-            <div
+            <button
               onClick={() => {
-                adjustDarkmode();
+                adjustSettings();
               }}
               className="w-[1.5rem] h-[1.5rem] float-right mt-[0.5rem] mr-[1rem]"
             >
-              <img
-                src="https://img.icons8.com/?size=512&id=UlOVIfVgfNz1&format=png"
-                alt=""
-              />
-            </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="#282c34"
+                className="w-6 h-6 hover:rotate-[-45deg]"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
+                />
+              </svg>
+              {isSettings ? (
+                <>
+                  <button onClick={()=>{
+                    handleEdit()
+                  }} className="mt-4 ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="#4f485b"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => {
+                      adjustDarkmode();
+                    }}
+                    className="mt-3"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#4f485b"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="#4f485b"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                      />
+                    </svg>
+                  </button>
+                </>
+              ) : null}
+            </button>
           </div>
 
           {currentPage === "profile" ? (

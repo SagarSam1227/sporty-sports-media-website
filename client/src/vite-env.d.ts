@@ -1,3 +1,4 @@
+import React from "react";
 
 
 export interface RootState {
@@ -8,7 +9,8 @@ export interface RootState {
 // for userSlice
 export interface User {
   username: string | null,
-  email:string | null
+  email:string | null,
+  image:string |null
 }
 
 
@@ -59,4 +61,18 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+}
+
+export interface card{
+  likes: Array;
+  image:string,
+  userDetails:{
+    username:string,
+    profile_picture:string
+  }
+}
+
+export interface likesInterface{
+  likes:string[]
+  setIsLikeList:React.Dispatch<React.SetStateAction<boolean>>
 }
