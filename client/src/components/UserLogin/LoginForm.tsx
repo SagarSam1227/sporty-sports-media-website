@@ -2,7 +2,7 @@ import { Formik, ErrorMessage, Form, Field } from 'formik';
 import { initialValues } from '../../utils/Formik';
 import { validationSchema } from '../../utils/Formik';
 import { formikInitialValues } from '../../vite-env';
-import UserNotFound from '../../utils/UserNotFound';
+import UserNotFound from '../../utils/modal/UserNotFound';
 
 function LoginForm({ setIsLoginClicked, setEmail, setPassword,isUserNotExist,setIsUserNotExist,message , setIsSignupPage}: any) {
 

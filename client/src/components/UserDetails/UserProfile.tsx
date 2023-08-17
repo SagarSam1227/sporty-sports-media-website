@@ -6,15 +6,24 @@ import { darkmodeInterface } from "../../vite-env";
 
 function UserProfile() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
-
   const username = userDetails.items?.username;
+  const image = userDetails.items?.image;
   const { isDarkmode }: darkmodeInterface = useContext(DarkModeContext);
+  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
+
+  let profilePic = ""
+  if(image){
+    profilePic = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${image}.jpg`
+  }else{
+    profilePic = '/public/assets/avatar-svgrepo-com.png'
+  }
+
 
   if (isDarkmode) {
     return (
         <>
       <div className="h-28 text-center">
-        <div className="rounded-full bg-[url('/public/assets/avatar-svgrepo-com.png')] h-28 w-28 mx-[6rem] bg-repeat-round"></div>
+      <div className="rounded-full h-28 w-28 mx-[6rem] bg-center bg-contain bg-no-repeat" style={{ backgroundImage: `url('${profilePic}')` }}></div>
       </div>
       <div className="h-[1.5rem]">
         <h1 className="font-bold text-lg text-center mt-[1rem] text-white">
@@ -37,7 +46,7 @@ function UserProfile() {
   return (
     <>
       <div className="h-28 text-center">
-        <div className="rounded-full bg-[url('/public/assets/avatar-svgrepo-com.png')] h-28 w-28 mx-[6rem] bg-repeat-round"></div>
+      <div className="rounded-full h-28 w-28 mx-[6rem] bg-center bg-contain bg-no-repeat" style={{ backgroundImage: `url('${profilePic}')` }}></div>
       </div>
       <div className="h-[1.5rem]">
         <h1 className="font-bold text-lg text-center mt-[1rem] text-gray-950">

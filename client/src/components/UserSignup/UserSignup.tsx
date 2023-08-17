@@ -4,7 +4,7 @@ import axios from "axios";
 import { Formik, ErrorMessage, Form, Field } from "formik"
 import { validationSchema } from "../../utils/Formik";
 import { initialValues } from "../../utils/Formik";
-import UserNotFound from "../../utils/UserNotFound";
+import UserNotFound from "../../utils/modal/UserNotFound";
 
 function Signup({ setOpen, setIsSignupPage }: LoginProps) {
     const [userName, setUserName] = useState('')

@@ -19,7 +19,7 @@ const userAuthMiddleware = (req: Request, res: Response, next: NextFunction) => 
   }
 
   try {
-    console.log('verification started....', token);
+    // console.log('verification started....', token);
     const { payload }: any = authService().verifyToken(token)
     if (payload) {
       req.payload= payload

@@ -12,7 +12,11 @@ const postRouter = ()=>{
     const controller = postController(postDbRepository,postRepository)
 
     router.get('/',controller.getPost)
+    router.get('/rest-posts',controller.getRemainingPost)
     router.post('/upload',userAuthMiddleware,uploadsMulter,controller.uploadPost)
+    router.post('/update-like',userAuthMiddleware,controller.updateLike)
+    router.get('/comment',userAuthMiddleware,controller.getComments)
+    router.post('/comment',userAuthMiddleware,controller.addComments)
 
     return router;
 

@@ -11,10 +11,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import DarkModeContext from "../../utils/DarkModeContext";
 import { authUrl, uploadUrl } from "../../api/axiosConnection";
+import LottieAnimation from "../../utils/LoadingAnimation";
 
 function Create() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
-  const [inputFile, setInputFile] = useState<File | null>(null);
+  const [inputFile, setInputFile] = useState<File | undefined | null>(null);
   const [objectURL, setObjectURL] = useState<string | null>(null);
   const [isUploadClicked, setIsUploadClicked] = useState<boolean>(false);
   const { isDarkmode } = useContext(DarkModeContext);
@@ -55,8 +56,9 @@ function Create() {
     if (isUploadClicked && inputFile) {
       uploadUrl(inputFile, navigate);
     }
-  });
+  },[isUploadClicked]);
 
+  
   useEffect(() => {
     return () => {
       if (objectURL) {
@@ -281,6 +283,7 @@ function Create() {
           </div>
         </div>
       </div>
+      {isUploadClicked?<LottieAnimation />:null}
     </>
   );
 }

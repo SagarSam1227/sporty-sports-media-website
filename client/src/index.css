@@ -2,89 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 @layer utilities {
-    @variants responsive {
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-  
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-      }
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
     }
-    .hover-fill-profile:hover {
-      fill: #252829;
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
   }
-  
+  .hover-fill-profile:hover {
+    fill: #252829;
+  }
+
   .hover-stroke-profile:hover {
-      stroke: #252829;
+    stroke: #252829;
   }
   .hover-fill-dark:hover {
     fill: #d8d8d8;
-}
+  }
 
-.hover-stroke-dark:hover {
+  .hover-stroke-dark:hover {
     stroke: #d8d8d8;
-}
-.fill-dark{
+  }
+  .fill-dark {
     fill: #d8d8d8;
-    
-}
-.stroke-dark{
-  stroke: #d8d8d8;
-  
-}.fill-light{
-  fill: #252829;
-}
+  }
+  .stroke-dark {
+    stroke: #d8d8d8;
+  }
+  .fill-light {
+    fill: #252829;
+  }
 
-.stroke-light{
-  stroke: #252829;
-}.vertical-range {
-  -webkit-appearance: none;
-  appearance: none;
-  transform: rotate(-90deg);
-  /* width: 208px;
+  .stroke-light {
+    stroke: #252829;
+  }
+  .vertical-range {
+    -webkit-appearance: none;
+    appearance: none;
+    transform: rotate(-90deg);
+    /* width: 208px;
   background-color: black;
   color: red;
   border-radius: 4rem; */
-}.vertical-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 12px;
-  height: 12px;
-  background-color:rgb(12, 27, 65); /* Change this to your desired thumb color */
-  border-radius: 50%; /* To make the thumb round */
-  cursor: none;
+  }
+  .vertical-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background-color: rgb(
+      12,
+      27,
+      65
+    ); /* Change this to your desired thumb color */
+    border-radius: 50%; /* To make the thumb round */
+    cursor: none;
+  }
 }
-  }
- 
-  @keyframes ping {
-    75%, 100% {
-      transform: scale(2);
-      opacity: 0;
-    }
-  }
 
-  .animate-ping-1s {
-    animation: ping 1s linear; /* Set the animation to run for 2 seconds */
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
   }
+}
 
+.animate-ping-1s {
+  animation: ping 1s linear; /* Set the animation to run for 2 seconds */
+}
 
-  @keyframes spinner-grow {
-    0% {
-        transform: scale(0.75);
-        opacity: 0.3;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+@keyframes spinner-grow {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 body.dark {
   background-color: #282c34;

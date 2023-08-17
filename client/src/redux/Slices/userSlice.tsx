@@ -9,7 +9,8 @@ interface UserState {
 const initialState: UserState = {
   items: {
       username: null,
-      email: null
+      email: null,
+      image:null
   },
 };
 
@@ -20,11 +21,13 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<User>) => {
       state.items.email=action.payload.email
       state.items.username=action.payload.username
+      state.items.image = action.payload.image 
     },
     clearUserDetails: (state) => {
       state.items = {
         username:null,
-        email:null
+        email:null,
+        image:null
       };
     },
   },

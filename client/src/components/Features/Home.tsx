@@ -19,13 +19,12 @@ function Home() {
 
   const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
 
-  const handleNavigate = (image: string)=>{
-    const data:object= {
-      image:image
-    }
+  const handleNavigate = (data:object)=>{
+    console.log(data);
+    
     navigate("/singlepost", { state:data});
   }
-
+  
 
   useEffect(() => {
     
@@ -45,7 +44,7 @@ function Home() {
       {data?.map((e: MyDataType) => {
         return (
           <div onClick={()=>{
-            handleNavigate(e.image)
+            handleNavigate(e)
           }} className="bg-black rounded-md justify-center">
             <img
               className=" rounded-md"

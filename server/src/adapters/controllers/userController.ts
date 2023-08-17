@@ -6,6 +6,7 @@ import { userRepository } from "../../frameworks/database/mongoDB/repositories/u
 import { authServiceInterfaceType } from "../../application/services/authServiceInterface"
 import { AuthService } from "../../frameworks/services/authServices"
 import findById from "../../application/useCases/user/findById"
+import profileUpdate from "../../application/useCases/user/profileUpdate"
 
 
 const userController = (
@@ -31,19 +32,58 @@ const userController = (
         });
     }
 
-    const getUserDetails = (req: Request, res: Response) => {
-        const { user } = req.payload
-        console.log(user);
-        findById(user.id, repository).then((response: object) => {
+    const getProfileDetails = (req: Request, res: Response) => {
+        const  userId:any = req.query?.userId
+        console.log(userId,'userIdddddd');
+        findById(userId, repository).then((response: object) => {
+            console.log(response,'haaaaaaalooooo');
             res.json(response)
         })
 
     }
 
+    const getUserDetails = (req: Request, res: Response) => {
+        const { user } = req.payload
+        console.log(user);
+        findById(user.id, repository).then((response: object) => {
+            console.log(response,'responsesssssssssss');
+            
+            res.json(response)
+        })
+
+    }
+
+    const uploadProfile = (req:Request,res:Response) =>{
+        const {user} = req.payload
+        const {username} = req.body
+        let filename
+        if(req.body.imageUrl){
+filename = req.body.imageUrl
+        }else{
+            filename = req.file?.filename
+        }
+        console.log(user.id);
+        console.log(username);
+        console.log(req.body,'bodyyy');
+        
+        
+        
+        profileUpdate(user.id,username,filename,repository).then((response:object)=>{
+            console.log(response);
+            res.json(true)
+        })
+        
+        
+        
+        
+    }
+
 
     return {
         createUser,
-        getUserDetails
+        getUserDetails,
+        uploadProfile,
+        getProfileDetails
     }
 
 }
