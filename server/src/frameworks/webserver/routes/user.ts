@@ -19,7 +19,16 @@ const userRouter = ()=>{
 
     router.post('/upload-profile',userAuthMiddleware,uploadsMulter,controller.uploadProfile)
 
-    router.get('/get-profile',controller.getProfileDetails)
+    router.get('/get-my-post',userAuthMiddleware,controller.fetchSomeOnesPost)
+
+    router.get('/get-profile',userAuthMiddleware,controller.getProfileDetails)
+
+    router.post('/follow',userAuthMiddleware,controller.setFollower)
+
+    router.get('/',controller.getAllUsers)
+
+    router.post('/save-post',userAuthMiddleware,controller.addToFavorites)
+
 
 
     return router

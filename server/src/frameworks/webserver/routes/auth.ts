@@ -12,6 +12,7 @@ const authRouter = ()=>{
     const controller = authController(userDbRepository,userRepository,authServiceInterface,authService)
 
     router.post('/login',controller.userLogin);
+    router.post('/google',controller.userGoogleAuth)
 
     return router;
 

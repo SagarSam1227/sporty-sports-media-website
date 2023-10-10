@@ -5,8 +5,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../vite-env";
 import { postCommentUrl } from "../../api/axiosConnection";
 
+
 export default function FullImageModal({ url, setIsFullImage,image }) {
   console.log("this iss", url, "urlllll");
+  console.log(image,'ujjjjjjjj');
+  
 
   const userDetails: any = useSelector<RootState>((store) => store.user);
   console.log(userDetails);
@@ -36,6 +39,7 @@ export default function FullImageModal({ url, setIsFullImage,image }) {
       }
     }
   };
+
 
   const handleDate = (oldDate:Date) =>{
     const olderDate = new Date(oldDate);
@@ -128,11 +132,11 @@ if(seconds<=30){
                     <hr className="mt-2 pb-4" />
                     <div className=" w-full h-[27rem] overflow-auto overflow-y-scroll no-scrollbar">
                       <div className="md:flex">
-                        <div className="w-full">
+                        <div className="w-full">     
                           <ul>
-                            {comments.reverse().map((comment) => {
+                            {comments?.reverse().map((comment) => {
                               return (
-                                <li className="flex justify-between items-center mb-4 mt-4 bg-white  p-2 rounded cursor-pointer transition">
+                                <li className="flex justify-between items-center mb-4 mt-4 bg-white p-2 rounded cursor-pointer transition">
                                   <div className="flex ml-2">
                                     {" "}
                                     <div
@@ -147,7 +151,6 @@ if(seconds<=30){
                                         <span className="font-bold text-sm text-gray-600">
                                           {comment.username}
                                         </span>
-                                        {/* <div className="w-5"> */}
 
                                         <span
                                           className="text-sm font-normal ml-3 text-black"

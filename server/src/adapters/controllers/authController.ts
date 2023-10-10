@@ -6,6 +6,7 @@ import asyncHandler from "express-async-handler";
 import { NextFunction, Request } from "express";
 import { Response } from "express";
 import userAuth from "../../application/useCases/auth/userAuth";
+import googleAuth from "../../application/useCases/auth/googleAuth";
 
 const authController = (
   userDbRepositoryInterface: userDbInterface,
@@ -16,24 +17,34 @@ const authController = (
   const repository = userDbRepositoryInterface(userDbReposImp())
   const services = authServiceInterface(authServiceImp())
 
-  const userLogin= asyncHandler(async (req: Request, res: Response ,next:NextFunction) => {
-    const { email,password } = req.body
-    console.log(req.body,'req.bodyyyyyyyyyyyy');
+  const userLogin = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body
+    console.log('checkpoint 1',req.body);
     
+  await userAuth(email, password, repository, services)
+      .then((result: any) => {
+        res.json(result)
+      })
+      .catch((error: any) => {
+        next(error)
+      });
+  })
 
-    
-     userAuth(email, password, repository, services)
-     .then((result:any) =>{
+  const userGoogleAuth = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body,'33333111');
+    await googleAuth(req.body,repository,services).then((result: any) => {
       res.json(result)
     })
-     .catch((error:any) => {
+    .catch((error: any) => {
       next(error)
     });
-}) 
+    
+  })
 
-return {
-  userLogin,
-}
+  return {
+    userLogin,
+    userGoogleAuth
+  }
 
 }
 export default authController;

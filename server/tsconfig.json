@@ -9,6 +9,6 @@
     "resolveJsonModule": true,
     "strict": true
   },
-  "include": ["src/*/*.ts"],
+  "include": ["src/*/*.ts", "src/adapters/controllers/messageController.ts"],
   "exclude": ["node_modules"]
 }

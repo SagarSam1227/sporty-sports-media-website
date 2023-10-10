@@ -10,8 +10,9 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import DarkModeContext from "../../utils/DarkModeContext";
-import { authUrl, uploadUrl } from "../../api/axiosConnection";
+import { uploadUrl } from "../../api/axiosConnection";
 import LottieAnimation from "../../utils/LoadingAnimation";
+import LoginInvoke from "../../utils/LoginErr";
 
 function Create() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
@@ -21,12 +22,15 @@ function Create() {
   const { isDarkmode } = useContext(DarkModeContext);
   const domEl = useRef(null);
   const navigate = useNavigate();
+  const [error, setError] = useState<string>();
 
   const username = userDetails.items?.username;
 
   const dispatch = useDispatch();
 
-  const downloadImage = async () => {
+  const 
+  
+  downloadImage = async () => {
     setIsUploadClicked(true);
   };
 
@@ -51,14 +55,16 @@ function Create() {
   };
 
   useEffect(() => {
-    authUrl(dispatch);
-
-    if (isUploadClicked && inputFile) {
-      uploadUrl(inputFile, navigate);
+    if (!username) {
+      navigate("/login");
     }
-  },[isUploadClicked]);
+    if (isUploadClicked && inputFile) {
+      uploadUrl(inputFile, navigate, dispatch).catch((error) => {
+        setError(error);
+      });
+    }
+  }, [isUploadClicked]);
 
-  
   useEffect(() => {
     return () => {
       if (objectURL) {
@@ -182,13 +188,11 @@ function Create() {
   return (
     <>
       <div
-        className={`md:float-left ml-40 grid gap-1  row-auto  columns-4 md:ml-[-13rem] rounded-md h-[30rem] overflow-y-scroll no-scrollbar md:mt-12 ${
-          username ? "w-1/2" : "w-3/4"
-        }`}
+        className={`rounded-md h-[30rem] overflow-y-scroll no-scrollbar mx-auto mt-14 md:w-full w-auto`}
       >
-        <div className=" w-full justify-center self-center place-self-center flex">
+        <div className="w-full justify-center self-center place-self-center flex">
           <div
-            className={`md:w-1/2 w-full justify-center h-[256px] self-center place-self-center`}
+            className={`w-1/2 justify-center h-[256px] self-center place-self-center`}
           >
             <label
               htmlFor="dropzone-file"
@@ -196,13 +200,17 @@ function Create() {
             >
               {inputFile ? (
                 <div
-                  className={`w-full h-full flex items-center justify-center `}
+                  className={`w-full h-full flex items-center rounded-lg justify-center bg-black`}
                 >
+                  {isUploadClicked ? <LottieAnimation /> : null}
+
                   <img
                     ref={domEl}
                     src={URL.createObjectURL(inputFile)}
                     alt=""
-                    className="object-contain max-w-full max-h-full"
+                    className={`object-contain max-w-full max-h-full ${
+                      isUploadClicked ? "opacity-25" : null
+                    }`}
                   />
                 </div>
               ) : (
@@ -283,7 +291,7 @@ function Create() {
           </div>
         </div>
       </div>
-      {isUploadClicked?<LottieAnimation />:null}
+      {error ? <LoginInvoke /> : null}
     </>
   );
 }

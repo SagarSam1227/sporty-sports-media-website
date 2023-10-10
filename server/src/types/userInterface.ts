@@ -43,3 +43,18 @@ declare global {
       }
     }
   }
+
+
+  export interface googleAuth{
+    username: string | null,
+    email:string | null,
+    image:string |null,
+    posts:object[] | null,
+    followers:object[] | null,
+    following:object[] | null
+  }
+
+  export interface adminInterface{
+    admin:string,
+    password:string
+  }

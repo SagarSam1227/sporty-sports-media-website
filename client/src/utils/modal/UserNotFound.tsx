@@ -11,7 +11,7 @@ function UserNotFound({message1,message2,onUserDismiss}:UserNotFoundProps ){
 
   return (
     <Transition.Root show={opening} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpening}>
+      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={onUserDismiss}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

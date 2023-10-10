@@ -17,6 +17,15 @@ export const postDbRepository = (repository:ReturnType<postRepository>) => {
 
     const createCommentBox = async (data:String)=> await repository.createCommentBox(data)
 
+    const addToReport = async (reason:string,image:string,user:string)=> await repository.updateReport(reason,image,user)
+
+    const fetchOnePost = async (image:string)=> await repository.findOnePost(image)
+
+    const updatePostBlock = async (hide:boolean,image:string)=> await repository.updateBlock(hide,image)
+
+
+
+
     return {
         uploadPost,
         fetchPost,
@@ -24,7 +33,10 @@ export const postDbRepository = (repository:ReturnType<postRepository>) => {
         updateLikes,
         fetchComments,
         addComments,
-        createCommentBox
+        createCommentBox,
+        addToReport,
+        fetchOnePost,
+        updatePostBlock
     }
 }
 

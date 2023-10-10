@@ -1,5 +1,5 @@
 import {useState} from "react"
-import Login from "../UserLogin/Login"
+import Login from "../../UserLogin/Login"
 
 
 function LogInButton(){
@@ -11,7 +11,7 @@ function LogInButton(){
         <button onClick={() => {
             setIsLoginClicked(true)
             setOpen(true)
-        }} className="w-[5rem] mx-8 h-[2rem] hidden md:block drop-shadow-2xl bg-[#000000] rounded-2xl float-right text-blue-50 text-sm fixed ml-[70rem] mt-[0.25rem]">
+        }} className=" md:block self-end float-right px-4 py-1 md:mt-12 mt-3 md:mb-2 mb-3 mr-12 text-blue-50 text-sm drop-shadow-2xl bg-[#000000] rounded-2xl">
             LOGIN
     </button> 
     {isLoginClicked ? <Login open={open} setOpen={setOpen} /> : null}
@@ -19,6 +19,8 @@ function LogInButton(){
     </>
     )
 }
+
+// }} className="w-[5rem] mx-8 h-[2rem] hidden md:block drop-shadow-2xl bg-[#000000] rounded-2xl float-right text-blue-50 text-sm fixed ml-[70rem] mt-[0.25rem]">
 
 
 export default LogInButton;

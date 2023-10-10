@@ -13,14 +13,15 @@ const userAuthMiddleware = (req: Request, res: Response, next: NextFunction) => 
   }
 
   if (!token) {
-    console.log('authentication required....................................................');
+    console.log('authentication required........change to baseURL........');
     return res.status(401).json({ message: 'Authentication required' });
 
   }
 
   try {
-    // console.log('verification started....', token);
     const { payload }: any = authService().verifyToken(token)
+    console.log(payload,'payload..........');
+    
     if (payload) {
       req.payload= payload
       next()

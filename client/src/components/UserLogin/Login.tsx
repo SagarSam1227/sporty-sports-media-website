@@ -5,6 +5,7 @@ import { LoginProps } from "../../vite-env";
 import { useDispatch } from "react-redux";
 import LoginForm from "./LoginForm";
 import { loginUrl } from "../../api/axiosConnection";
+import { useNavigate } from "react-router-dom";
 
 function Login({ open, setOpen }: LoginProps) {
   const [isSignupPage, setIsSignupPage] = useState<boolean>(false);
@@ -14,17 +15,20 @@ function Login({ open, setOpen }: LoginProps) {
   const [userLoginErr, setUserLoginErr] = useState<string | null>(null);
   const [email, setEmail] = useState<String>("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [googleSignup,setGoogleSignup] = useState<{}>()
   const [isLoginClicked, setIsLoginClicked] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     setIsSignupPage(false);
     setOpen(false);
+    navigate('/home')
   };
 
   useEffect(() => {
     if (isLoginClicked) {
 
-      loginUrl(password, email, dispatch, setIsUserNotExist, setUserLoginErr);
+      loginUrl(password, email, dispatch, setIsUserNotExist, setUserLoginErr,navigate);
 
     }
   }, [isLoginClicked, open, email, password]);

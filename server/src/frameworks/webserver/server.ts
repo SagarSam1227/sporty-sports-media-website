@@ -5,7 +5,6 @@ const serverConfig = (server:Server) => {
     const startServer = ()=>{
         server.listen(configKeys.PORT, ()=>{
             console.log(`Sever listening on Port ${configKeys.PORT} `);
-            
         })
     }
 

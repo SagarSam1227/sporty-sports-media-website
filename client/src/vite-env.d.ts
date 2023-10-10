@@ -10,7 +10,13 @@ export interface RootState {
 export interface User {
   username: string | null,
   email:string | null,
-  image:string |null
+  image:string |null,
+  posts:{image:string}[] | null,
+  followers:string[] | null,
+  following:string[] | null,
+  blocked:boolean | null,
+  favorites:string[] | null
+
 }
 
 
@@ -18,7 +24,7 @@ export interface LoginProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSignupPage?:boolean;
-  setIsSignupPage:React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSignupPage?:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -49,7 +55,9 @@ export interface darkmodeInterface {
 }
 
 export interface MyDataType {
-  image: string;
+  image: string,
+  userDetails:{any},
+  hide:boolean
   // other properties if present
 }
 
@@ -64,8 +72,9 @@ interface ImportMeta {
 }
 
 export interface card{
-  likes: Array;
+  likes: Array,
   image:string,
+  _id:string,
   userDetails:{
     username:string,
     profile_picture:string
@@ -75,4 +84,44 @@ export interface card{
 export interface likesInterface{
   likes:string[]
   setIsLikeList:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export interface reportInterface{
+  reports:{
+    email:string,
+    reason:string
+  }[]
+  setIsViewReport:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+
+export interface optionsInterface{
+  email:string,
+  card:{
+      image: string;
+},
+setIsOptionsSelected:React.Dispatch<React.SetStateAction<boolean>>,
+handleSave:()=>{}
+
+
+}
+
+
+export interface myOptionsInterface{
+  card:{
+      image: string;
+},
+setIsOptionsSelected:React.Dispatch<React.SetStateAction<boolean>>,
+setIsFullImage:React.Dispatch<React.SetStateAction<boolean>>,
+
+
+
+}
+
+
+export interface chatInterface{
+  members: {membersId:{
+    profile_picture:string,
+    username:string
+  }}[]
 }

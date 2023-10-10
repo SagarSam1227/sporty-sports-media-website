@@ -19,6 +19,13 @@ const postSchema = new Schema(
         },
         likes:{
             type:Array
+        },
+        reports:{
+            type:Array
+        },
+        hide:{
+            type:Boolean,
+            default:false
         }
     }
 )
