@@ -13,6 +13,8 @@ const chatRouter = ()=>{
 
     router.get('/',controller.findAllChat)
     router.post('/access',controller.accessChat)
+    router.post('/message',controller.createMessage)
+    router.get('/message',controller.fetchMessages)
 
     return router;
  

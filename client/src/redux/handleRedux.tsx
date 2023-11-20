@@ -1,8 +1,9 @@
+import { setId } from "./Slices/chatSlice";
 import {  addFollowing, addPost, addToFavorites, removeFollowing, removeFromFavorites, removePost, setUser } from "./Slices/userSlice"
 
 
 
-export const handleItem = (email: string, username: string,image:string | null,postDetails:object[],followers:string[],following:string[],blocked:boolean,favorites:string[],dispatch:any)=> {
+export const handleItem = (email: string, username: string,image:string | null,postDetails:{image:string}[],followers:string[],following:string[],blocked:boolean,favorites:string[],dispatch:any)=> {
   dispatch(setUser({
     email: email, username: username, image: image, posts: postDetails,following:following,followers: followers,blocked:blocked,
     favorites: favorites
@@ -38,4 +39,8 @@ export const handleDeletePost = (image:string,dispatch:any)=>{
 
 export const handleAddPost = (post:{image:string},dispatch:any)=>{
   dispatch(addPost({post:post}))
+}
+
+export const handleSetId = (id:String,dispatch:any)=>{
+  dispatch(setId({hearerId:id}))
 }

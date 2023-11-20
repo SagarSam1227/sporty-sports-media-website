@@ -9,10 +9,16 @@ export const chatDbRepository = (repository:ReturnType<chatRepository>)=>{
     
     const findChats = async(id:string)=> await repository.getChat(id)
 
+    const postMessage = async(senderId:String,chat:string,message:string)=> await repository.postNewMessage(senderId,chat,message)
 
-    return{
+    const getMessages = async(chat:string)=> await repository.getAllMessages(chat)
+
+
+    return{ 
         accessChat,
-        findChats
+        findChats,
+        postMessage,
+        getMessages
     }
 }
 

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../vite-env";
 import { useEffect, useState } from "react";
-import { fetchMyPostUrl, followUserUrl } from "../../api/axiosConnection";
-import { useLocation} from "react-router-dom";
+import { accessChatUrl, fetchMyPostUrl, followUserUrl } from "../../api/axiosConnection";
+import { useLocation, useNavigate} from "react-router-dom";
 import LoginInvoke from "../../utils/LoginErr";
 import { handleAddFollowing,handleRemoveFollowing } from "../../redux/handleRedux";
 import { useDispatch } from "react-redux";
@@ -19,6 +19,7 @@ function OthersProfile() {
   const profile = userDetails.items?.image;
 
   const [isMyProfile,setIsMyProfile] = useState<boolean>(false)
+  const navigate = useNavigate()
   
   
   
@@ -29,6 +30,7 @@ function OthersProfile() {
     following: string[];
     username: string;
     profile_picture: string;
+    _id:string;
   }>();
 
   console.log(userInfo,'uesrInfoo');
@@ -39,12 +41,23 @@ console.log(isFollowing,userName,'isFollowing');
   const location = useLocation();
   const dispatch = useDispatch()
   const [error, setError] = useState<string>();
+  const [chat,setChat] = useState<object>({})
 
   const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
 
   const user = location.state;
   console.log(user);
 
+
+  const handleMessage=async ()=>{
+    if(userInfo){
+
+      await accessChatUrl(userInfo?._id,setChat).then((response)=>{
+        navigate('/inbox',{state:response})
+
+      })
+    }
+  }
 
   const handleFollowing = () => {
     if (isFollowing) {
@@ -202,6 +215,11 @@ console.log(isFollowing,userName,'isFollowing');
                   </button>
                   <button className="w-full text-sm font-medium hover:bg-[#ebebf1bf]">
                     report
+                  </button>
+                  <button onClick={()=>{
+                    handleMessage()
+                  }} className="w-full text-sm font-medium hover:bg-[#ebebf1bf]">
+                    message
                   </button>
                 </div>
               ) : null}

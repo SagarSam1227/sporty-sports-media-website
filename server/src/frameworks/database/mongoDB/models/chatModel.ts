@@ -20,10 +20,9 @@ const chatSchema = new Schema(
 
         ],
         latestMessage: {
-            messageId: {
-                type: Schema.Types.ObjectId,
-                ref: 'message'
-            }
+            type: Schema.Types.ObjectId,
+            ref: 'message'
+
         },
         createdAt: {
             type: Date,

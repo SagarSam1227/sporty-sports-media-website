@@ -4,11 +4,24 @@ import RightBar from "../RightBar/RightBar";
 import SearchBar from "./SearchBar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../vite-env";
+import { socket } from "../../Features/chat/SingleChat";
+import { useEffect } from "react";
 
 function Body(){
 
     const userInfo: any = useSelector<RootState>((store) => store.user);
 
+    const currentChat :{items:{hearerId:string}} | any = useSelector<RootState>((store) => store.currentChat);
+    const hearerId = currentChat?.items?.hearerId
+    
+  useEffect(()=>{
+    socket?.on('peer-id recieved',(peerId)=>{
+      console.log(peerId,'id of opponent.......');
+      socket.on('open',(hearerId)=>{
+        
+      })
+    })
+  },[hearerId])
 
     return(
         <>

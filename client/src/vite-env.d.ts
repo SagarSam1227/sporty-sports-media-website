@@ -3,6 +3,7 @@ import React from "react";
 
 export interface RootState {
   user:object[]
+  currentChat:object[]
   // Add other slices and their respective states here
 }
 
@@ -10,13 +11,13 @@ export interface RootState {
 export interface User {
   username: string | null,
   email:string | null,
-  image:string |null,
+  image?:string |null,
+  profile_picture?:string | null,
   posts:{image:string}[] | null,
   followers:string[] | null,
   following:string[] | null,
   blocked:boolean | null,
-  favorites:string[] | null
-
+  favorites:string[] | null,
 }
 
 
@@ -122,6 +123,12 @@ setIsFullImage:React.Dispatch<React.SetStateAction<boolean>>,
 export interface chatInterface{
   members: {membersId:{
     profile_picture:string,
-    username:string
+    username:string,
+    _id:String
   }}[]
+  latestMessage:{
+    createdAt: Date;
+    content:string
+  }
+  createdAt:Date;
 }

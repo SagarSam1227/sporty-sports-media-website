@@ -57,6 +57,8 @@ export const userRepository = () => {
     }
 
     const findUserById = async (id: string) => {
+        console.log(id,'iddd.............................');
+        
         try{
             const objectId = new mongoose.Types.ObjectId(id)
             // const user: userInterface | null = await User.findOne({ _id: objectId })
@@ -70,7 +72,7 @@ export const userRepository = () => {
                         userIdString: { $toString: "$_id" }
                     }
                 },
-                {
+                { 
                     $lookup:{
                         from:'posts',
                         localField:'userIdString',
@@ -86,7 +88,9 @@ export const userRepository = () => {
             
             
         }catch(error){
-            throw new GetErr('Failed to fetch user')
+            console.log(error);
+            
+            throw new GetErr('Failed to fetch user..')
            }
     }
 

@@ -11,7 +11,7 @@ import { Dispatch, AnyAction } from "redux";
 export const authUrl = async (dispatch: any) => {
     await baseURL
         .get('check-auth')
-        .then((response: { data: [{ email: string; username: string; profile_picture: string | null, postDetails: [{hide:boolean}], following: string[], followers: string[], blocked: boolean,favorites:string[] }] }) => {
+        .then((response: { data: [{ email: string; username: string; profile_picture: string | null, postDetails: [{ hide: boolean }], following: string[], followers: string[], blocked: boolean, favorites: string[] }] }) => {
             console.log(response, 'result of check auth');
 
             if (
@@ -21,20 +21,20 @@ export const authUrl = async (dispatch: any) => {
                 response.data[0].username ||
                 response.data[0].profile_picture
             ) {
-                const { email, username, profile_picture, postDetails, followers, following,favorites } = response.data[0];
+                const { email, username, profile_picture, postDetails, followers, following, favorites } = response.data[0];
                 // Destructure email and username from the response data
-                console.log(postDetails,'dd');
+                console.log(postDetails, 'dd');
 
-                
+
                 interface PostDetails {
 
                     hide: boolean;
                     // Add other properties as needed
-                  }
-                  
-                  const postArray: PostDetails[] = postDetails.filter((post: PostDetails) => !post.hide);
-                  
-                handleItem(email, username, profile_picture, postArray, following,followers, response.data[0].blocked,favorites, dispatch)
+                }
+
+                const postArray: PostDetails[] = postDetails.filter((post: PostDetails) => !post.hide);
+
+                handleItem(email, username, profile_picture, postArray, following, followers, response.data[0].blocked, favorites, dispatch)
             }
             return 1
         })
@@ -50,7 +50,7 @@ export const findProfileUrl = async (setData: (arg0: any) => void, userId: strin
     const queryParams = {
         userId: userId
     };
-   const response = await baseURL
+    const response = await baseURL
         .get("user/get-profile", { params: queryParams })
         .then((response) => {
             console.log(response, 'resultttttt');
@@ -58,31 +58,34 @@ export const findProfileUrl = async (setData: (arg0: any) => void, userId: strin
             return response.data[0]
         })
         .catch((error) => {
-            if (error.resonse.data.message == 'Authentication required') {
+            console.log(error);
+            if (error?.resonse?.data?.message == 'Authentication required') {
+
+
                 throw 'authentication'
             } else {
                 throw 'other'
             }
         });
-        return response
+    return response
 }
 
 
 export const postUrl = async (setData: { (value: SetStateAction<MyDataType[]>): void; (arg0: any): void; }) => {
-  const response =  await baseURL
+    const response = await baseURL
         .get('post')
         .then((response) => {
-            console.log(response,'all postssss');
+            console.log(response, 'all postssss');
             setData(response.data);
             return response.data;
         })
         .catch((error) => {
-                console.log(error);
-                
+            console.log(error);
+
             throw new Error(error)
         });
 
-        return response;
+    return response;
 }
 
 export const fetchUserUrl = async (setData: { (value: SetStateAction<MyDataType[]>): void; (arg0: any): void; }) => {
@@ -117,7 +120,7 @@ export const remainingPostUrl = async (setData: { (value: SetStateAction<MyDataT
 }
 
 
-export const uploadUrl = async (inputFile: File, navigate: (arg0: string, arg1: { state: any; }) => void,dispatch: Dispatch<AnyAction>) => {
+export const uploadUrl = async (inputFile: File, navigate: (arg0: string, arg1: { state: any; }) => void, dispatch: Dispatch<AnyAction>) => {
     const formData = new FormData();
     formData.append("image", inputFile);
     console.log('fileeessss', inputFile);
@@ -138,10 +141,10 @@ export const uploadUrl = async (inputFile: File, navigate: (arg0: string, arg1: 
                 console.log(response.data, '5555555555555555');
 
                 navigate("/singlepost", { state: response.data });
-                handleAddPost(response.data,dispatch)
+                handleAddPost(response.data, dispatch)
             }
         })
-        .catch((error:Error) => {
+        .catch((error: Error) => {
             throw new Error(error.message)
         });
 }
@@ -213,7 +216,7 @@ export const loginUrl = async (
                 console.log(response.data.user, 'this is userrrrrr');
                 const posts: object[] = []
                 handleItem(response.data?.user?.email,
-                    response.data?.user?.username, response.data?.user?.profile_picture, posts, response.data?.user?.following, response.data?.user?.followers, response?.data?.blocked,response?.data?.favorites,dispatch)
+                    response.data?.user?.username, response.data?.user?.profile_picture, posts, response.data?.user?.following, response.data?.user?.followers, response?.data?.blocked, response?.data?.favorites, dispatch)
                 navigate('/home')
             }
             // else {
@@ -244,7 +247,7 @@ export const GoogleAuthUrl = async (userData: User, navigate: NavigateFunction, 
                 console.log(response.data.user, 'this is userrrrrr');
                 const posts: object[] = []
                 handleItem(response.data?.user?.email,
-                    response.data?.user?.username, response.data?.user?.profile_picture, posts, response.data?.user?.following, response.data?.user?.followers,response.data?.user?.blocked,response.data?.user?.favorites,dispatch)
+                    response.data?.user?.username, response.data?.user?.profile_picture, posts, response.data?.user?.following, response.data?.user?.followers, response.data?.user?.blocked, response.data?.user?.favorites, dispatch)
                 navigate('/home')
             }
             // else {
@@ -313,14 +316,14 @@ export const savePostUrl = async (flag: string, image: string, username: string)
 }
 
 
-export const getCommentUrl = async (post: string,setData: { (value: SetStateAction<{ username: String; userProfile: String; comment: String; date: Date; }[]>): void; (value: any): void; (arg0: any): void; }) => {
+export const getCommentUrl = async (post: string, setData: { (value: SetStateAction<{ username: String; userProfile: String; comment: String; date: Date; }[]>): void; (value: any): void; (arg0: any): void; }) => {
     const queryParams = {
         post: post
     }
 
 
 
-   const response = await baseURL.get('post/comment', { params: queryParams }).then((response) => {
+    const response = await baseURL.get('post/comment', { params: queryParams }).then((response) => {
         setData(response?.data?.comments.reverse())
         return response?.data
     }).catch((error) => {
@@ -333,12 +336,12 @@ export const getCommentUrl = async (post: string,setData: { (value: SetStateActi
 
 export const fetchSinglePostUrl = async (image: string, setData: { (value: any): void; (arg0: any): void; }) => {
     const queryParams = {
-        image:image
+        image: image
     };
 
     console.log('queryParams', queryParams);
 
-   const response = await baseURL
+    const response = await baseURL
         .get("post/get-single-post", { params: queryParams })
         .then((response) => {
             console.log('single post', response);
@@ -348,8 +351,8 @@ export const fetchSinglePostUrl = async (image: string, setData: { (value: any):
         .catch((error) => {
             throw new Error(error)
         });
-        
-        return response
+
+    return response
 }
 
 export const postCommentUrl = async (post: String, username: String, profile: String, comment: String) => {
@@ -393,12 +396,12 @@ export const fetchMyPostUrl = async (username: string, setData: { (value: any): 
         username: username
     };
 
-    console.log(username,'00000000000');
-    
+    console.log(username, '00000000000');
+
 
     console.log('queryParams', queryParams);
 
-   return await baseURL
+    return await baseURL
         .get("user/get-my-post", { params: queryParams })
         .then((response) => {
             console.log('response', response);
@@ -479,15 +482,15 @@ export const followUserUrl = async (value: string, follower: string, username: s
     });
 }
 
-export const updateReportUrl = async(image:string,username:string,reason:string) =>{
+export const updateReportUrl = async (image: string, username: string, reason: string) => {
     const data = {
-        image:image,
-        user:username,
-        reason:reason
+        image: image,
+        user: username,
+        reason: reason
     }
     console.log(data);
-    
-    baseURL.post('post/report-post',data).then((response) => {
+
+    baseURL.post('post/report-post', data).then((response) => {
         return response
 
     }).catch((error) => {
@@ -495,14 +498,14 @@ export const updateReportUrl = async(image:string,username:string,reason:string)
     });
 }
 
-export const updateReportHideUrl = async(image:string,hide:boolean) =>{
+export const updateReportHideUrl = async (image: string, hide: boolean) => {
     const data = {
-        image:image,
-        hide:hide
+        image: image,
+        hide: hide
     }
     console.log(data);
-    
-   axios.post('http://localhost:3000/api/admin/block-post',data).then((response) => {
+
+    axios.post('http://localhost:3000/api/admin/block-post', data).then((response) => {
         return response
 
     }).catch((error) => {
@@ -510,13 +513,18 @@ export const updateReportHideUrl = async(image:string,hide:boolean) =>{
     });
 }
 
-export const fetchChatListUrl = async ( setData: { (value: any): void; (arg0: any): void; }) => {
+export const fetchChatListUrl = async (setData: { (value: any): void; (arg0: any): void; }) => {
 
 
-   return await baseURL
+    return await baseURL
         .get("chat")
         .then((response) => {
             console.log('response', response);
+            response.data.sort((a:{latestMessage:{createdAt:Date},createdAt:Date},b:{latestMessage:{createdAt:Date},createdAt:Date})=>{
+                const dateA = new Date(a?.latestMessage?.createdAt?a.latestMessage?.createdAt:a?.createdAt);
+  const dateB = new Date(b.latestMessage?.createdAt?b.latestMessage?.createdAt:b?.createdAt);
+  return dateB.getTime() - dateA.getTime() 
+            })
             setData(response.data);
             return response.data;
         })
@@ -524,4 +532,47 @@ export const fetchChatListUrl = async ( setData: { (value: any): void; (arg0: an
             throw new Error(error)
         });
 }
- 
+
+export const    createMessageUrl = async (chat: string, message: string) => {
+    const data = {
+        chat: chat,
+        message: message
+    }
+    return await baseURL.post('chat/message', data).then((response) => {
+        console.log(response, 12345);
+        return response.data
+
+    }).catch((error) => {
+        throw new Error(error)
+    });
+}
+
+export const getMessagesUrl = async (chat:string,setData: { (value: any): void; (arg0: any): void; })=>{
+    const queryParams = {
+        chat: chat
+    }
+
+    return await baseURL.get('chat/message', {params:queryParams}).then((response) => {
+        console.log(response, '000000');
+        setData(response.data)
+
+    }).catch((error) => {
+        throw new Error(error)
+    });
+}
+
+export const accessChatUrl = async (userId:string,setData: { (value: any): void; (arg0: any): void; })=>{
+    const data = {
+        userId:userId
+    }
+
+    return await baseURL.post('chat/access', data).then((response) => {
+        console.log(response, '939494');
+        setData(response.data)
+        return response.data
+
+    }).catch((error) => {
+        throw new Error(error)
+    });
+}
+

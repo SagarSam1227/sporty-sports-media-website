@@ -29,7 +29,6 @@ import LoginInvoke from "./utils/LoginErr";
 import AdminLogin from "./components/admin/AdminLogin/AdminLogin";
 import Chat from "./components/Features/chat/SingleChat";
 import NetworkErr from "./utils/modal/NetworkErr";
-import Sample from "./Sample";
 import Body from "./components/Layout/Body/Body";
 
 
@@ -60,7 +59,7 @@ function Container() {
     setIsOnline(false);
   };
   
-
+ 
 
   useEffect(() => {
     updateBodyBackground(isDarkmode);

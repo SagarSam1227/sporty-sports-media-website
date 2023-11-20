@@ -25,7 +25,7 @@ function EachPost({data,username}:{data:{image:string,hide:boolean},username:str
         }
     
       };
-
+ 
 
     return (
         <>
