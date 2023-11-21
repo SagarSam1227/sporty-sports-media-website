@@ -8,14 +8,12 @@ import {
 } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Home from "./components/Features/Home";
-import Header from "./components/Layout/Header/Header";
 import { Provider } from "react-redux";
 import DarkModeContext from "./utils/DarkModeContext";
 import News from "./components/Features/News";
 import NearShops from "./components/Features/Services/NearShops";
 import Turf from "./components/Features/Services/Turf";
 import Create from "./components/Features/Create";
-import UserDetails from "./components/UserDetails/UserDetails";
 import SinglePost from "./components/Features/posts/SinglePost";
 import updateBodyBackground from "./utils/setupDarkmode";
 import SingleNews from "./components/Features/SingleNews";

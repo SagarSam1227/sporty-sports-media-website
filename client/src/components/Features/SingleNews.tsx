@@ -1,17 +1,11 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../vite-env";
-import { useDispatch } from "react-redux";
+
 import { useLocation } from "react-router-dom";
 
 function SingleNews() {
-  const userDetails: any = useSelector<RootState>((store) => store.user);
   const location = useLocation();
   const imageData = location.state;
-  const dispatch = useDispatch();
 
   console.log(imageData);
-
-  const username = userDetails.items?.username;
     
   
   return (

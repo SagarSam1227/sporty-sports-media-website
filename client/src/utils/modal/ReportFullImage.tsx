@@ -10,7 +10,7 @@ export default function ReportFullImage(props: {
 }) {
   const { setIsFullImage, post } = props;
 
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME;
 
   const [open] = useState(true);
   const [comments, setComments] = useState<

@@ -1,6 +1,5 @@
-import Peer from 'peerjs'
-import { useEffect, useRef ,RefObject, useState} from 'react';
-import { Socket } from 'socket.io-client';
+
+import { useEffect} from 'react';
 
 function VideoCall({
   setIsVideoCallClicked,myPeerId

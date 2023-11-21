@@ -31,7 +31,7 @@ function LoginForm({ setIsLoginClicked, setEmail, setPassword,isUserNotExist,set
                     validationSchema={validationSchema}
                     onSubmit={onSubmit}
                 >
-                    {({ values,handleSubmit }) => (
+                    {({ values}) => (
                         <Form className="mt-6">
                             <div className="mb-2">
                                 <label

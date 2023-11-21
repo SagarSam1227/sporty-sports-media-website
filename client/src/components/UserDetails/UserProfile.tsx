@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../vite-env";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import DarkModeContext from "../../utils/DarkModeContext";
 import { darkmodeInterface } from "../../vite-env";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +9,9 @@ function UserProfile() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
   const username = userDetails.items?.username;
   const image = userDetails.items?.image;
-  const [buttonClicked,setButtonClicked] = useState<string>('')
+  // const [buttonClicked,setButtonClicked] = useState<string>('')
   const { isDarkmode }: darkmodeInterface = useContext(DarkModeContext);
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME as string;
   
   const myPosts = userDetails.items?.posts
     const following = userDetails.items?.following
@@ -83,7 +83,7 @@ function UserProfile() {
         <hr className="w-[14rem] mx-[2.5rem] mt-[2rem] mb-3" />
       </div>
       <button onClick={()=>{
-        setButtonClicked('post')
+        // setButtonClicked('post')
       }} className="h-12 w-full hover:bg-[#f8feff] mt-[3rem]">
         {myPosts?
         <h1 className="font-semibold text-[#808080] hover:text-black">

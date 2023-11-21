@@ -152,7 +152,8 @@ function Signup({ setOpen, setIsSignupPage }: LoginProps) {
                 {" "}
                 Already have an account?{" "}
                 <a onClick={() => {
-                    setIsSignupPage(false)
+                    if(setIsSignupPage != undefined)
+                        setIsSignupPage(false)
                     setOpen(true)
                 }}
                     href="#"

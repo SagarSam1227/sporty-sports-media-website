@@ -7,17 +7,16 @@ import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { createMessageUrl, getMessagesUrl } from "../../../api/axiosConnection";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../vite-env";
-import EmojiPicker, { Emoji, EmojiClickData } from "emoji-picker-react";
 import VideoCall from "./VideoCall";
 import Peer from "peerjs";
 
 const ENDPOINT = "http://localhost:3000";
-export var socket: Socket<DefaultEventsMap, DefaultEventsMap>, selectedChatCompare;
+export var socket: Socket<DefaultEventsMap, DefaultEventsMap>, selectedChatCompare: any;
 function Chat() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
   const username = userDetails.items?.username;
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
-  const [isEmoji, setIsEmoji] = useState<boolean>(false);
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME;
+  // const [isEmoji, setIsEmoji] = useState<boolean>(false);
 
   const location = useLocation();
 
@@ -51,7 +50,9 @@ function Chat() {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connection", () => setSocketConnected(true));
-
+    
+    console.log(socketConnected);
+    
     
      const peer : Peer = new Peer()
     peerRef.current = peer
@@ -88,17 +89,17 @@ function Chat() {
     setInput(input);
   };
 
-  const handleEmojiClick = (emoji: string) => {
-    setInput((existingInput: string) => {
-      if (existingInput) {
-        return existingInput.concat(emoji);
-      } else {
-        return emoji;
-      }
-    });
+  // const handleEmojiClick = (emoji: string) => {
+  //   setInput((existingInput: string) => {
+  //     if (existingInput) {
+  //       return existingInput.concat(emoji);
+  //     } else {
+  //       return emoji;
+  //     }
+  //   });
 
-    console.log(input, "input.......");
-  };
+  //   console.log(input, "input.......");
+  // };
 
   const addMessage = async (newMessage: string) => {
     if (newMessage.trim() != "") {
@@ -355,7 +356,7 @@ function Chat() {
             <div className="h-[4.5rem]  place-items-center rounded-b-2xl flex absolute bottom-0 w-full border bg-[#ffffff]">
               <img
                 onClick={() => {
-                  setIsEmoji(true);
+                  // setIsEmoji(true);
                 }}
                 className="w-9 h-9 mt-[-0.4rem] ml-5 cursor-pointer"
                 src="/public/assets/smile2.png"

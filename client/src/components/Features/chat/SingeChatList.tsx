@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { RootState, chatInterface } from "../../../vite-env";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -20,7 +20,7 @@ function SingleChatList({chat}:{chat:chatInterface}){
 
     console.log(chat,'000000000');
     
-    const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+    const CLOUD_NAME = process.env.VITE_CLOUD_NAME;
 
     let profilePic
 

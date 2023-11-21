@@ -7,7 +7,7 @@ export default function LikesModal(props:likesInterface){
 
   const {likes,setIsLikeList} = props
 
-  const [open, setOpen] = useState(true)
+  const [open, _ ] = useState(true)
 
   console.log(likes);
   

@@ -41,9 +41,9 @@ console.log(isFollowing,userName,'isFollowing');
   const location = useLocation();
   const dispatch = useDispatch()
   const [error, setError] = useState<string>();
-  const [chat,setChat] = useState<object>({})
+  // const [chat,setChat] = useState<object>({})
 
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME;
 
   const user = location.state;
   console.log(user);
@@ -52,7 +52,7 @@ console.log(isFollowing,userName,'isFollowing');
   const handleMessage=async ()=>{
     if(userInfo){
 
-      await accessChatUrl(userInfo?._id,setChat).then((response)=>{
+      await accessChatUrl(userInfo?._id).then((response)=>{
         navigate('/inbox',{state:response})
 
       })

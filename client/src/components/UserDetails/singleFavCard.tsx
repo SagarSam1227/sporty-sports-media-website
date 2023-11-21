@@ -7,7 +7,7 @@ import { RootState } from "../../vite-env";
 function SingleFavCard(props: { image: string }) {
   const { image } = props;
 
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME as string;
   const [isCardHover, setIsCardHover] = useState<boolean>(false);
   const userDetails: any = useSelector<RootState>((store) => store.user);
 const email = userDetails?.items?.email

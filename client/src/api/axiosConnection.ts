@@ -23,18 +23,24 @@ export const authUrl = async (dispatch: any) => {
             ) {
                 const { email, username, profile_picture, postDetails, followers, following, favorites } = response.data[0];
                 // Destructure email and username from the response data
-                console.log(postDetails, 'dd');
+                console.log(postDetails, 'dddfdfdfdfdf');
 
 
-                interface PostDetails {
+                // interface PostDetails {
 
-                    hide: boolean;
-                    // Add other properties as needed
-                }
+                //     hide:boolean,
+                //    image:string
+                //     // Add other properties as needed
+                // }
 
-                const postArray: PostDetails[] = postDetails.filter((post: PostDetails) => !post.hide);
+                const postArr:any = postDetails?.filter((post: any) => !post.hide);
 
-                handleItem(email, username, profile_picture, postArray, following, followers, response.data[0].blocked, favorites, dispatch)
+            
+
+                
+                console.log(postArr,'post arrayyyyy');
+                
+                handleItem(email, username, profile_picture, postArr, following, followers, response.data[0].blocked, favorites, dispatch)
             }
             return 1
         })
@@ -214,7 +220,7 @@ export const loginUrl = async (
                 setIsUserNotExist(false);
                 localStorage.setItem("authToken", response.data.token);
                 console.log(response.data.user, 'this is userrrrrr');
-                const posts: object[] = []
+                const posts: {image:string}[] = []
                 handleItem(response.data?.user?.email,
                     response.data?.user?.username, response.data?.user?.profile_picture, posts, response.data?.user?.following, response.data?.user?.followers, response?.data?.blocked, response?.data?.favorites, dispatch)
                 navigate('/home')
@@ -245,7 +251,7 @@ export const GoogleAuthUrl = async (userData: User, navigate: NavigateFunction, 
                 console.log('not erorrrrr');
                 localStorage.setItem("authToken", response.data.token);
                 console.log(response.data.user, 'this is userrrrrr');
-                const posts: object[] = []
+                const posts: {image:string}[] = []
                 handleItem(response.data?.user?.email,
                     response.data?.user?.username, response.data?.user?.profile_picture, posts, response.data?.user?.following, response.data?.user?.followers, response.data?.user?.blocked, response.data?.user?.favorites, dispatch)
                 navigate('/home')
@@ -374,14 +380,15 @@ export const postCommentUrl = async (post: String, username: String, profile: St
 
 }
 
-export const signUpUrl = async (data: formikInitialValues, setIsSignupPage: (arg0: boolean) => void, setOpen: (arg0: boolean) => void, setSignUpErr: (arg0: string) => void) => {
+export const signUpUrl = async (data: formikInitialValues, setIsSignupPage: React.Dispatch<React.SetStateAction<boolean>> | undefined, setOpen: (arg0: boolean) => void, setSignUpErr: (arg0: string) => void) => {
 
     const API_URL = 'http://localhost:3000/api/user/add-user';
 
     await axios.post(API_URL, data)
         .then((response) => {
             console.log('SignUp successfull:', response.data);
-            setIsSignupPage(false)
+            if(setIsSignupPage != undefined)
+                setIsSignupPage(false )
             setOpen(true)
         })
         .catch((error) => {
@@ -418,7 +425,7 @@ export const adminLoginUrl = async (
     email: String,
     password: String,
     setIsAdminNotExist: { (value: SetStateAction<boolean>): void; (arg0: boolean): void; },
-    setAdminLoginErr: { (value: SetStateAction<string | null>): void; (arg0: any): void; }, isDashBoard: { (value: SetStateAction<boolean>): void; (arg0: boolean): void; }) => {
+    setAdminLoginErr: { (value: SetStateAction<string>): void; (arg0: any): void; }, isDashBoard: { (value: SetStateAction<boolean>): void; (arg0: boolean): void; }) => {
 
 
     const data = {
@@ -561,14 +568,14 @@ export const getMessagesUrl = async (chat:string,setData: { (value: any): void; 
     });
 }
 
-export const accessChatUrl = async (userId:string,setData: { (value: any): void; (arg0: any): void; })=>{
+export const accessChatUrl = async (userId:string)=>{
     const data = {
         userId:userId
     }
 
     return await baseURL.post('chat/access', data).then((response) => {
         console.log(response, '939494');
-        setData(response.data)
+        // setData(response.data)
         return response.data
 
     }).catch((error) => {

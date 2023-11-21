@@ -16,7 +16,7 @@ function Login({ open, setOpen }: LoginProps) {
   const [email, setEmail] = useState<String>("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [googleSignup,setGoogleSignup] = useState<{}>()
+  // const [googleSignup,setGoogleSignup] = useState<{}>()
   const [isLoginClicked, setIsLoginClicked] = useState<boolean>(false);
 
   const handleCloseModal = () => {

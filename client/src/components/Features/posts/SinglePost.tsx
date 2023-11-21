@@ -33,7 +33,7 @@ function SinglePost() {
     findProfileUrl(setProfileData, imageData.userid)
       .then((response) => {
         imageData.userDetails = response;
-        console.log(imageData, "output...");
+        console.log(profileData, "output...");
       })
       .catch((error) => {
         setError(error);

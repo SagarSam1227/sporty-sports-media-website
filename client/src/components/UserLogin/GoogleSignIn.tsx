@@ -22,7 +22,9 @@ const dispatch = useDispatch()
             image: result.user.photoURL,
             posts: [],
             followers: [],
-            following: []
+            following: [],
+            blocked:false,
+            favorites:[]
         }
         
         console.log(userData);

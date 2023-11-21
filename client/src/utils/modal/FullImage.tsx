@@ -6,16 +6,18 @@ import { RootState } from "../../vite-env";
 import { postCommentUrl } from "../../api/axiosConnection";
 
 
-export default function FullImageModal({ url, setIsFullImage,image }) {
+export default function FullImageModal({ url, setIsFullImage,image }:{url:string,setIsFullImage: any,image:string}) {
   console.log("this iss", url, "urlllll");
   console.log(image,'ujjjjjjjj');
   
 
   const userDetails: any = useSelector<RootState>((store) => store.user);
-  console.log(userDetails);
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+  console.log(userDetails)
 
-  const [open, setOpen] = useState(true);
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME as string;
+  console.log('sagar funda:',CLOUD_NAME);
+  
+  const [open] = useState(true);
   const [comments, setComments] = useState<
     Array<{ username: String; userProfile: String; comment: String ;date:Date}>
   >([]);

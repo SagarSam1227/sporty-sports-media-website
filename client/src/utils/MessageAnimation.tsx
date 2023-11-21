@@ -1,4 +1,4 @@
-import Lottie from "lottie-react";
+
 
 const MessageAnimation = () => {
   return (

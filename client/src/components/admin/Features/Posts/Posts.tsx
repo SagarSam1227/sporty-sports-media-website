@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { fetchUserUrl, postUrl } from "../../../../api/axiosConnection";
+import { useEffect, useState } from "react";
+import {  postUrl } from "../../../../api/axiosConnection";
 import { MyDataType } from "../../../../vite-env";
 import EachPost from "./EachPost";
 

@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../vite-env";
-import { string } from "yup";
-import { useState } from "react";
 import SingleFavCard from "./singleFavCard";
 
 function Favorites() {

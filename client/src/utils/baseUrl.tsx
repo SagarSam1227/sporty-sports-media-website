@@ -1,4 +1,4 @@
-async function urlToBase64(url) {
+async function urlToBase64(url:string) {
     try {
       const response = await fetch(url);
       const blob = await response.blob();
@@ -13,7 +13,7 @@ async function urlToBase64(url) {
           }
         };
       });
-    } catch (error) {
+    } catch (error:any) {
       throw new Error('Failed to fetch the image: ' + error.message);
     }
   }

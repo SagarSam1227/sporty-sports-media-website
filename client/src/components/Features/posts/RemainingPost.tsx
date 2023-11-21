@@ -71,7 +71,7 @@ function RemainingPosts({ card }: { card: card }) {
     }
   };
 
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME;
 
   const profilePic = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${card.userDetails.profile_picture}.jpg`;
   const backgroundImage = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${card.image}.jpg`;

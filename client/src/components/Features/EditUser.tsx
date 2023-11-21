@@ -7,7 +7,7 @@ import LottieAnimation from "../../utils/LoadingAnimation";
 import { useContext } from "react";
 import DarkModeContext from "../../utils/DarkModeContext";
 import "react-image-crop/dist/ReactCrop.css";
-import Cropper, { Area } from "react-easy-crop";
+import Cropper from "react-easy-crop";
 import getCroppedImg from "../../utils/CropImage";
 import urlToBase64 from "../../utils/baseUrl";
 import base64URLtoFile from "../../utils/ToFile";
@@ -25,7 +25,7 @@ function EditUser() {
 
   const navigate = useNavigate();
 
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME as string;
 
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
@@ -219,8 +219,10 @@ function EditUser() {
   const onCropComplete = useCallback(
     async (croppedArea: any, croppedAreaPixels: any) => {
       try {
+        console.log(croppedArea);
+        
         console.log("onCropComplete called with isCroped =", isCroped);
-        let baseUrl
+        let baseUrl 
         if(imageUrl){
           baseUrl = await urlToBase64(imageUrl);
         }else{
@@ -232,23 +234,25 @@ function EditUser() {
           // After the image has been loaded, you can now call getCroppedImg
 
           const croppedImage = await getCroppedImg(
-            baseUrl, // Use the loaded image directly
+            baseUrl as string, // Use the loaded image directly
             croppedAreaPixels
           ).catch((error) => {
             console.log(error, "errorrr");
           });
 
-          const output = base64URLtoFile(croppedImage, image);
-          console.log(output,'output');
+
+            const output = base64URLtoFile(`${croppedImage}`, image);
+            console.log(output,'output');
+            
+            setInputFile(output);
+            // if(isCroped){
+              // setImageUrl(croppedImage)
+              setCroppedImage(`${croppedImage}`)
+              // setObjectURL(croppedImage)
+              setIsCroped(false)
+            //  }
+            console.log(output, "everything is fine");
           
-          setInputFile(output);
-          // if(isCroped){
-            // setImageUrl(croppedImage)
-            setCroppedImage(croppedImage)
-            // setObjectURL(croppedImage)
-            setIsCroped(false)
-          //  }
-          console.log(output, "everything is fine");
         }
       } catch (e) {
         console.error("Error cropping image:", e);

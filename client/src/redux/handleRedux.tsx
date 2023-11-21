@@ -3,9 +3,9 @@ import {  addFollowing, addPost, addToFavorites, removeFollowing, removeFromFavo
 
 
 
-export const handleItem = (email: string, username: string,image:string | null,postDetails:{image:string}[],followers:string[],following:string[],blocked:boolean,favorites:string[],dispatch:any)=> {
+export const handleItem = (email: string, username: string,profile:string | null,postDetails:{image:string}[],followers:string[],following:string[],blocked:boolean,favorites:string[],dispatch:any)=> {
   dispatch(setUser({
-    email: email, username: username, image: image, posts: postDetails,following:following,followers: followers,blocked:blocked,
+    email: email, username: username, image: profile, posts: postDetails,following:following,followers: followers,blocked:blocked,
     favorites: favorites
   }))
 }

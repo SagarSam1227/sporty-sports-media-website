@@ -5,7 +5,7 @@ import ReportFullImage from "../../../../utils/modal/ReportFullImage";
 import { updateReportHideUrl } from "../../../../api/axiosConnection";
 
 function EachPost({ post }: { post: any }) {
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME;
 
   const [isHidden, setIsHidden] = useState<boolean>(post?.hide);
   const [isMouseOver,setIsMouseOver] = useState<boolean>(false)

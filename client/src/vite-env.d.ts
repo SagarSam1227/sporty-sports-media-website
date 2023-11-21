@@ -102,7 +102,7 @@ export interface optionsInterface{
       image: string;
 },
 setIsOptionsSelected:React.Dispatch<React.SetStateAction<boolean>>,
-handleSave:()=>{}
+handleSave:()=>void
 
 
 }

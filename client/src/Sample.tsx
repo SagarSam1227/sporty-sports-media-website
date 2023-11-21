@@ -1,9 +1,7 @@
-import { useContext, useState } from "react";
-import DarkModeContext from "./utils/DarkModeContext";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Sample() {
-  const { isDarkmode } = useContext(DarkModeContext);
   const [isMouseOver1, setIsMouseOver1] = useState(false);
   const [isMouseOver2, setIsMouseOver2] = useState(false);
   const [isMouseOver3, setIsMouseOver3] = useState(false);

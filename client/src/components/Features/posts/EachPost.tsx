@@ -11,7 +11,7 @@ function EachPost({data,username}:{data:{image:string,hide:boolean},username:str
     const userDetails: any = useSelector<RootState>((store) => store.user);
     const userName = userDetails.items?.username;
     const navigate = useNavigate()
-    const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME;
+    const CLOUD_NAME = process.env.VITE_CLOUD_NAME;
 
     const [isFullImage,setIsFullImage] = useState<boolean>(false)
 

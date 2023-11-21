@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { myOptionsInterface } from "../../vite-env";
 import { updateReportHideUrl } from "../../api/axiosConnection";
@@ -10,9 +10,9 @@ import { useDispatch } from "react-redux";
 export default function MyImageOptionsModal(props: myOptionsInterface) {
   const { card, setIsOptionsSelected,setIsFullImage } = props;
 
-  const [optionsClicked, setOptionsClicked] = useState<string>("");
+  const [optionsClicked, _ ] = useState<string>("");
   const [open, setOpen] = useState(true);
-  const [data, setData] = useState<any>();
+  // const [data, setData] = useState<any>();
   const navigate = useNavigate()
   const dispatch = useDispatch()
 

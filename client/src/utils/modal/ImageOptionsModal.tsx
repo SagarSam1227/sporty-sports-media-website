@@ -10,7 +10,7 @@ export default function ImageOptionsModal(props: optionsInterface) {
 
   const [optionsClicked, setOptionsClicked] = useState<string>("");
   const [open, setOpen] = useState(true);
-  const [data, setData] = useState<any>();
+  const [ _ , setData] = useState<any>();
 
   //   const onButtonClicked = () => {
   //    setOptionsClicked('')

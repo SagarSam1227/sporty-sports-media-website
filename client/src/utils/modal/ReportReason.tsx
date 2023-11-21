@@ -1,4 +1,4 @@
-import { Fragment, SetStateAction, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import SingleReason from "../SingleReason";
 import { updateReportUrl } from "../../api/axiosConnection";

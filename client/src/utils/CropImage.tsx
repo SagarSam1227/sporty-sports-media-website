@@ -48,15 +48,17 @@
 
 
 
-export default async function getCroppedImg(imageSrc, pixelCrop) {
+export default async function getCroppedImg(imageSrc: string, pixelCrop: { width: number; height: number; x: number; y: number; }) {
+  console.log('sagar oru myran: ',imageSrc,' : ',typeof(imageSrc),'  *  ',pixelCrop,typeof(pixelCrop));
+  
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.src = imageSrc;
   
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const scaleX = img.width / img.naturalWidth;
-        const scaleY = img.height / img.naturalHeight;
+        // const scaleX = img.width / img.naturalWidth;
+        // const scaleY = img.height / img.naturalHeight;
         canvas.width = pixelCrop.width;
         canvas.height = pixelCrop.height;
         const ctx = canvas.getContext('2d');

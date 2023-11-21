@@ -12,7 +12,7 @@ import { clearUserDetails } from "../../redux/Slices/userSlice";
 
 function Home() {
   const userDetails: any = useSelector<RootState>((store) => store.user);
-  const username = userDetails.items?.username;
+  // const username = userDetails.items?.username;
   const blocked = userDetails.items?.blocked;
 
   const [error, setError] = useState<string>();
@@ -23,7 +23,7 @@ function Home() {
 
   const [data, setData] = useState<Array<MyDataType>>([]);
 
-  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME as string;
+  const CLOUD_NAME = process.env.VITE_CLOUD_NAME as string;
 
   const handleNavigate = (data: object) => {
     console.log(data, "navigating from home");
